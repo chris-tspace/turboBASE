@@ -20,9 +20,9 @@
         <li class="header">Header</li>
         <!-- Optionally, you can add icons to the links -->
         
-        <li @if (Route::currentRouteNamed('aircraft.index')) class="active" @endif >
+        {{--  <li @if (Route::currentRouteNamed('aircraft.index')) class="active" @endif >
           <a href="{{ route('aircraft.index') }}"><i class="fa fa-h-square "></i> <span>Aircrafts</span></a>
-        </li>
+        </li>  --}}
 
         <li @if (Route::currentRouteNamed('engine.index') 
               or Route::currentRouteNamed('engine.create')
