@@ -102,7 +102,8 @@ class EngineController extends Controller
 
         $engine->engine_type_id = $request->engine_type_id;
         $engine->serial_number = $request->serial_number;
-
+        $engine->ident = $request->ident;
+        
         $engine->save();
 
         return back()->with('success','Engine updated successfully');
