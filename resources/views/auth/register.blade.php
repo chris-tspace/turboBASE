@@ -13,7 +13,16 @@
             {{ csrf_field() }}
 
             <div class="form-group has-feedback{{ $errors->has('username') ? ' has-error' : '' }}">
-                <input id="username" type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}" required autofocus>
+                <input
+                    id="username"
+                    type="text"
+                    class="form-control"
+                    style="text-transform:uppercase"
+                    name="username"
+                    placeholder="Username"
+                    value="{{ old('username') }}"
+                    required
+                    autofocus>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 
                 @if ($errors->has('username'))
@@ -68,7 +77,7 @@
             </div>
 
             <div class="form-group has-feedback">
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-primary btn-block" onclick="buildinput(this.form)">
                     Register
                 </button>
             </div>
@@ -83,4 +92,12 @@
     </div>
 </div>
 
+@endsection
+
+@section('js')
+<script>
+  function buildinput(form) {
+    form.username.value = form.username.value.toUpperCase();
+  }
+</script>
 @endsection
