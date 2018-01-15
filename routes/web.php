@@ -33,3 +33,19 @@ Route::get('/engine/{engine}', 'EngineController@show')->name('engine.show');
 Route::get('/engine/{engine}/edit', 'EngineController@edit')->name('engine.edit');
 Route::patch('/engine/{engine}', 'EngineController@update')->name('engine.update');
 Route::delete('/engine/{engine}', 'EngineController@destroy')->name('engine.destroy');
+
+Route::get('/aircraftType', 'AircraftTypeController@index')->name('aircraftType.index');
+Route::get('/aircraftType/create', 'AircraftTypeController@create')->name('aircraftType.create');
+Route::post('/aircraftType', 'AircraftTypeController@store')->name('aircraftType.store');
+Route::get('/aircraftType/{aircraftType}', 'AircraftTypeController@show')->name('aircraftType.show');
+Route::get('/aircraftType/{aircraftType}/edit', 'AircraftTypeController@edit')->name('aircraftType.edit');
+Route::patch('/aircraftType/{aircraftType}', 'AircraftTypeController@update')->name('aircraftType.update');
+Route::delete('/aircraftType/{aircraftType}', 'AircraftTypeController@destroy')->name('aircraftType.destroy');
+
+Route::get('/aircraft', 'AircraftController@index')->name('aircraft.index');
+Route::get('/aircraft/create', 'AircraftController@create')->name('aircraft.create');
+Route::post('/aircraft', 'AircraftController@store')->name('aircraft.store');
+Route::get('/aircraft/{aircraft}', 'AircraftController@show')->name('aircraft.show');
+Route::get('/aircraft/{aircraft}/edit', 'AircraftController@edit')->name('aircraft.edit');
+Route::patch('/aircraft/{aircraft}', 'AircraftController@update')->name('aircraft.update');
+Route::delete('/aircraft/{aircraft}', 'AircraftController@destroy')->name('aircraft.destroy');

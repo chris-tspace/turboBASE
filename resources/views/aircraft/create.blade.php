@@ -2,7 +2,7 @@
 
 {{-- @section('content-header')
 <h1>
-    Engines
+    Aircraft
     <small>Optional description</small>
 </h1>
 @endsection
@@ -12,32 +12,29 @@
   <div class="col-md-4">
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">Engine Update</h3>
+        <h3 class="box-title">Aircraft Creation</h3>
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="POST" action="{{ route('engine.update', ['id' => $engine->id]) }}">
-        {{ csrf_field() }}
-        {{ method_field('PATCH') }}
+      <form class="form-horizontal" method="POST" action="{{ route('aircraft.store') }}"> {{ csrf_field() }}
         <div class="box-body">
-          @include('layouts.message')
-          <div class="form-group{{ $errors->has('engine_type_id') ? ' has-error' : '' }}">
-            <label for="engine_type_id" class="col-sm-4 control-label">Type</label>
+          <div class="form-group{{ $errors->has('aircraft_type_id') ? ' has-error' : '' }}">
+            <label for="aircraft_type_id" class="col-sm-4 control-label">Type</label>
             <div class="col-sm-8">
               <select class="selectpicker"
               data-live-search="true"
               data-width="auto"
-              id="engine_type_id"
-              name="engine_type_id"
-              value="{{ $engine->engine_type_id or old('engine_type_id') }}"
+              id="aircraft_type_id"
+              name="aircraft_type_id"
+              value="{{ old('aircraft_type_id') }}"
               required>
-                @foreach($engineTypes as $engineType)
-                <option value='{{$engineType->id }}'>{{ $engineType->type }}</option>
+                @foreach($aircraftTypes as $aircraftType)
+                <option value='{{$aircraftType->id }}'>{{ $aircraftType->type }}</option>
                 @endforeach
               </select>
-              @if ($errors->has('engine_type_id'))
+              @if ($errors->has('aircraft_type_id'))
               <span class="help-block">
-                <strong>{{ $errors->first('engine_type_id') }}</strong>
+                <strong>{{ $errors->first('aircraft_type_id') }}</strong>
               </span>
               @endif
             </div>
@@ -51,7 +48,7 @@
               style="text-transform:uppercase"
               id="serial_number"
               name="serial_number"
-              value="{{ $engine->serial_number or old('serial_number') }}"
+              value="{{ old('serial_number') }}"
               required>
               @if ($errors->has('serial_number'))
               <span class="help-block">
@@ -60,7 +57,7 @@
               @endif
             </div>
           </div>
-          <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
+          {{--  <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
             <div class="col-sm-8">
               <input
               type="hidden" 
@@ -73,13 +70,13 @@
               </span>
               @endif
             </div>
-          </div>
+          </div>  --}}
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
           <div class="pull-right">
             <button type="submit" class="btn btn-primary" onclick="buildinput(this.form)">
-              Update
+              Create
             </button>
           </div>
           <a href="{{ url()->previous() }}"><button type="button" class="btn btn-default">Back</button></a>
@@ -95,7 +92,7 @@
 <script>
   function buildinput(form) {
     form.serial_number.value = form.serial_number.value.toUpperCase();
-    form.ident.value = form.engine_type_id + '_' + form.serial_number.value;
+    {{--  form.ident.value = form.aircraft_type_id + '_' + form.serial_number.value;  --}}
   }
 </script>
 @endsection

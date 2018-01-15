@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class EngineType extends Model
 {
-    protected $fillable = ['family', 'variant', 'type'];
+    protected $fillable = [
+        'family',
+        'variant',
+        'type',
+    ];
 
     public function engines()
     {

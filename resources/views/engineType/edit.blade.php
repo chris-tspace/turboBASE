@@ -20,8 +20,8 @@
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
         <div class="box-body">
-            @include('layouts.message')
-            <div class="form-group{{ $errors->has('family') ? ' has-error' : '' }}">
+          @include('layouts.message')
+          <div class="form-group{{ $errors->has('family') ? ' has-error' : '' }}">
             <label for="family" class="col-sm-2 control-label">Family</label>
 
             <div class="col-sm-10">
