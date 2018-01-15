@@ -131,7 +131,7 @@
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ Auth::user()->name }}
+                  {{ Auth::user()->username }} - {{ Auth::user()->name }}
                   <small>Member since {{ Auth::user()->created_at->diffForHumans() }}</small>
                 </p>
               </li>
