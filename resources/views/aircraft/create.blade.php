@@ -57,6 +57,24 @@
               @endif
             </div>
           </div>
+          <div class="form-group{{ $errors->has('manufacturer_code') ? ' has-error' : '' }}">
+            <label for="manufacturer_code" class="col-sm-4 control-label">Manufacturer code</label>
+            <div class="col-sm-8">
+              <input
+              type="text" 
+              class="form-control"
+              style="text-transform:uppercase"
+              id="manufacturer_code"
+              name="manufacturer_code"
+              value="{{ old('manufacturer_code') }}"
+              required>
+              @if ($errors->has('manufacturer_code'))
+              <span class="help-block">
+                <strong>{{ $errors->first('manufacturer_code') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
           {{--  <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
             <div class="col-sm-8">
               <input
@@ -92,6 +110,7 @@
 <script>
   function buildinput(form) {
     form.serial_number.value = form.serial_number.value.toUpperCase();
+    form.manufacturer_code.value = form.manufacturer_code.value.toUpperCase();
     {{--  form.ident.value = form.aircraft_type_id + '_' + form.serial_number.value;  --}}
   }
 </script>

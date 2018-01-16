@@ -29,6 +29,12 @@
             {{ $aircraft->serial_number }}
           </div>
         </div>
+        <div class="row">
+          <label class="col-xs-6">Manufacturer code</label>
+          <div class="col-xs-6">
+            {{ $aircraft->manufacturer_code }}
+          </div>
+        </div>
       </div>
       <!-- /.box-body -->
       <div class="box-footer">

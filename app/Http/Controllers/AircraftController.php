@@ -101,6 +101,7 @@ class AircraftController extends Controller
 
         $aircraft->aircraft_type_id = $request->aircraft_type_id;
         $aircraft->serial_number = $request->serial_number;
+        $aircraft->manufacturer_code = $request->manufacturer_code;
         
         $aircraft->save();
 
