@@ -16,6 +16,8 @@ update .env regarding the server configration
 Spaces are not allowed. Use quotes for strings with spaces.
 
 ```bash
+composer update
+
 php artisan key:generate
 php artisan migrate
 ```
