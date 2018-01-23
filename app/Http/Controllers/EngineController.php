@@ -54,6 +54,8 @@ class EngineController extends Controller
             'engine_type_id' => 'required',
             'serial_number' => 'required',
             'ident' => 'unique:engines',
+            'aircraft_id' => 'nullable',
+            'aircraft_position' => 'required_with:aircraft_id',
             ]); 
             
         Engine::Create($engine);
@@ -98,11 +100,15 @@ class EngineController extends Controller
             'engine_type_id' => 'required',
             'serial_number' => 'required',
             'ident' => 'unique:engines,ident,'.$engine->id,
+            'aircraft_id' => 'nullable',
+            'aircraft_position' => 'required_with:aircraft_id',
         ]);
 
         $engine->engine_type_id = $request->engine_type_id;
         $engine->serial_number = $request->serial_number;
         $engine->ident = $request->ident;
+        $engine->aircraft_id = $request->aircraft_id;
+        $engine->aircraft_position = $request->aircraft_position;
         
         $engine->save();
 

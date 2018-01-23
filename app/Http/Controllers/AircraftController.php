@@ -54,6 +54,7 @@ class AircraftController extends Controller
         $aircraft = request()->validate([
             'aircraft_type_id' => 'required',
             'serial_number' => 'required',
+            'manufacturer_code' => 'nullable',
             ]); 
             
         Aircraft::Create($aircraft);
@@ -69,7 +70,9 @@ class AircraftController extends Controller
      */
     public function show(Aircraft $aircraft)
     {
-        return view('aircraft.show', compact('aircraft'));
+        $engines = $aircraft->engines;
+
+        return view('aircraft.show', compact('aircraft', 'engines'));
     }
 
     /**
@@ -97,6 +100,7 @@ class AircraftController extends Controller
         request()->validate([
             'aircraft_type_id' => 'required',
             'serial_number' => 'required',
+            'manufacturer_code' => 'nullable',
         ]);
 
         $aircraft->aircraft_type_id = $request->aircraft_type_id;
