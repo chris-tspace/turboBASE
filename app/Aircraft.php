@@ -10,10 +10,6 @@ class Aircraft extends Model
         'aircraft_type_id',
         'serial_number',
         'manufacturer_code',
-        'engine1_id',
-        'engine2_id',
-        'engine3_id',
-        'engine4_id',
     ];
 
     public function engines()

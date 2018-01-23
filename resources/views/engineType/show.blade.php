@@ -9,7 +9,7 @@
 --}}
 @section('content')
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-10">
     <div class="box box-info">
       <div class="box-header with-border">
         <h3 class="box-title">Engine Type Show</h3>

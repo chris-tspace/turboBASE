@@ -6,7 +6,7 @@
 @section('content')
 
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-6">
     <div class="box box-info">
       <div class="box-header with-border">
         <div class="pull-right">
@@ -24,8 +24,8 @@
           <table class="table" id="table_aircraftType">
           <thead>
             <tr>
-              <th class="text-center">Type</th>
-              <th class="text-center">Aircrafts</th>
+              <th class="text-left">Type</th>
+              <th class="text-left">Aircrafts</th>
             </tr>
           </thead>
           <tbody>

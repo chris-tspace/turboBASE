@@ -10,6 +10,8 @@ class Engine extends Model
         'engine_type_id', 
         'serial_number', 
         'ident',
+        'aircraf_id',
+        'aircraft_position',
     ];
 
     public function engineType()

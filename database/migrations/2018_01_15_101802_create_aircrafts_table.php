@@ -18,10 +18,6 @@ class CreateAircraftsTable extends Migration
             $table->integer('aircraft_type_id');
             $table->string('serial_number');
             $table->string('manufacturer_code')->nullable();
-            $table->integer('engine1_id')->nullable();
-            $table->integer('engine2_id')->nullable();
-            $table->integer('engine3_id')->nullable();
-            $table->integer('engine4_id')->nullable();
             $table->timestamps();
         });
     }
