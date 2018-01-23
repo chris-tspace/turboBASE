@@ -20,9 +20,49 @@
         <div class="row">
           <label class="col-xs-3">Type</label>
           <div class="col-xs-9">
-            {{$aircraftType->type}}
+            {{ $aircraftType->type }}
           </div>
         </div>
+        @if ($aircraftType->left_engine_type_id)
+          <div class="row">
+            <label class="col-xs-3">Engine left</label>
+            <div class="col-xs-9">
+                <a href="{{ route('engineType.show', ['id' => $aircraftType->leftEngineType->id]) }}">{{ $aircraftType->leftEngineType->type }}</a>
+            </div>
+          </div>
+        @endif
+        @if ($aircraftType->right_engine_type_id)
+          <div class="row">
+            <label class="col-xs-3">Engine right</label>
+            <div class="col-xs-9">
+                <a href="{{ route('engineType.show', ['id' => $aircraftType->rightEngineType->id]) }}">{{ $aircraftType->rightEngineType->type }}</a>
+            </div>
+          </div>
+        @endif
+        @if ($aircraftType->front_engine_type_id)
+          <div class="row">
+            <label class="col-xs-3">Engine front</label>
+            <div class="col-xs-9">
+                <a href="{{ route('engineType.show', ['id' => $aircraftType->frontEngineType->id]) }}">{{ $aircraftType->frontEngineType->type }}</a>
+            </div>
+          </div>
+        @endif
+        @if ($aircraftType->rear_engine_type_id)
+          <div class="row">
+            <label class="col-xs-3">Engine rear</label>
+            <div class="col-xs-9">
+                <a href="{{ route('engineType.show', ['id' => $aircraftType->rearEngineType->id]) }}">{{ $aircraftType->rearEngineType->type }}</a>
+            </div>
+          </div>
+        @endif
+        @if ($aircraftType->middle_engine_type_id)
+          <div class="row">
+            <label class="col-xs-3">Engine middle</label>
+            <div class="col-xs-9">
+                <a href="{{ route('engineType.show', ['id' => $aircraftType->middleEngineType->id]) }}">{{ $aircraftType->middleEngineType->type }}</a>
+            </div>
+          </div>
+        @endif
       </div>
       <!-- /.box-body -->
       <div class="box-footer">

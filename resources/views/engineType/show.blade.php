@@ -20,19 +20,27 @@
         <div class="row">
           <label class="col-xs-3">Family</label>
           <div class="col-xs-9">
-            {{$engineType->family}}
+            {{ $engineType->family }}
           </div>
         </div>
         <div class="row">
           <label class="col-xs-3">Variant</label>
           <div class="col-xs-9">
-            {{$engineType->variant}}
+            {{ $engineType->variant }}
           </div>
         </div>
         <div class="row">
           <label class="col-xs-3">Type</label>
           <div class="col-xs-9">
-            {{$engineType->type}}
+            {{ $engineType->type }}
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-3">Aircraft types</label>
+          <div class="col-xs-9">
+            @foreach ($aircraftTypes as $item)
+            <a href="{{ route('aircraftType.show', ['id' => $item->id]) }}">{{ $item->type }}</a> &nbsp;
+            @endforeach
           </div>
         </div>
       </div>

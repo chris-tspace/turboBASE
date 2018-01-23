@@ -48,7 +48,12 @@ class AircraftTypeController extends Controller
     public function store(Request $request)
     {
         $aircraftType = request()->validate([
-            'type' => 'required|unique:aircraft_types'
+            'type' => 'required|unique:aircraft_types',
+            'left_engine_type_id' => 'nullable',
+            'right_engine_type_id' => 'nullable',
+            'front_engine_type_id' => 'nullable',
+            'rear_engine_type_id' => 'nullable',
+            'middle_engine_type_id' => 'nullable',
         ]); 
 
         AircraftType::Create($aircraftType);
@@ -93,9 +98,19 @@ class AircraftTypeController extends Controller
 
         request()->validate([
             'type' => 'required|unique:aircraft_types,type,'.$aircraftType->id,
+            'left_engine_type_id' => 'nullable',
+            'right_engine_type_id' => 'nullable',
+            'front_engine_type_id' => 'nullable',
+            'rear_engine_type_id' => 'nullable',
+            'middle_engine_type_id' => 'nullable',
         ]);
 
         $aircraftType->type = $request->type;
+        $aircraftType->left_engine_type_id = $request->left_engine_type_id;
+        $aircraftType->right_engine_type_id = $request->right_engine_type_id;
+        $aircraftType->front_engine_type_id = $request->front_engine_type_id;
+        $aircraftType->rear_engine_type_id = $request->rear_engine_type_id;
+        $aircraftType->middle_engine_type_id = $request->middle_engine_type_id;
 
         $aircraftType->save();
 

@@ -16,6 +16,11 @@ class CreateAircraftTypesTable extends Migration
         Schema::create('aircraft_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
+            $table->integer('left_engine_type_id')->nullable();
+            $table->integer('right_engine_type_id')->nullable();
+            $table->integer('front_engine_type_id')->nullable();
+            $table->integer('rear_engine_type_id')->nullable();
+            $table->integer('middle_engine_type_id')->nullable();
             $table->timestamps();
         });
     }

@@ -16,4 +16,29 @@ class EngineType extends Model
     {
     	return $this->hasMany(Engine::class);
     }
+
+    public function leftAircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class, 'left_engine_type_id'); 
+    }
+
+    public function rightAircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class, 'right_engine_type_id'); 
+    }
+
+    public function frontAircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class, 'front_engine_type_id'); 
+    }
+
+    public function rearAircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class, 'rear_engine_type_id'); 
+    }
+
+    public function middleAircraftTypes()
+    {
+        return $this->hasMany(AircraftType::class, 'middle_engine_type_id'); 
+    }
 }

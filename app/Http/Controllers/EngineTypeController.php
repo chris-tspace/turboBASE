@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EngineType;
+use App\AircraftType;
 use Illuminate\Http\Request;
 
 class EngineTypeController extends Controller
@@ -67,8 +68,15 @@ class EngineTypeController extends Controller
     public function show(EngineType $engineType)
     {
         $engines = $engineType->engines;
+        $aircraftTypes = AircraftType::orderBy('type', 'asc')
+            ->where('left_engine_type_id', $engineType->id)
+            ->orWhere('right_engine_type_id', $engineType->id)
+            ->orWhere('front_engine_type_id', $engineType->id)
+            ->orWhere('rear_engine_type_id', $engineType->id)
+            ->orWhere('middle_engine_type_id', $engineType->id)
+            ->get();
 
-        return view('engineType.show', compact('engineType', 'engines'));
+        return view('engineType.show', compact('engineType', 'engines', 'aircraftTypes'));
     }
 
     /**
