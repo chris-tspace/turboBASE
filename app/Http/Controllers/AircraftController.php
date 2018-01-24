@@ -39,8 +39,9 @@ class AircraftController extends Controller
     public function create()
     {
         $aircraftTypes = AircraftType::orderBy('type', 'asc')->get();
+        $manufacturers = AircraftType::orderBy('manufacturer', 'asc')->pluck('manufacturer')->unique();
         
-        return view('aircraft.create', compact('aircraftTypes'));
+        return view('aircraft.create', compact('aircraftTypes', 'manufacturers'));
     }
 
     /**
@@ -84,8 +85,9 @@ class AircraftController extends Controller
     public function edit(Aircraft $aircraft)
     {
         $aircraftTypes = AircraftType::orderBy('type', 'asc')->get();
+        $manufacturers = AircraftType::orderBy('manufacturer', 'asc')->pluck('manufacturer')->unique();
 
-        return view('aircraft.edit', compact('aircraft', 'aircraftTypes'));
+        return view('aircraft.edit', compact('aircraft', 'aircraftTypes', 'manufacturers'));
     }
 
     /**

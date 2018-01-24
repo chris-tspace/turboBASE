@@ -18,9 +18,15 @@
       <!-- form start -->
       <div class="box-body">
         <div class="row">
+          <label class="col-xs-6">Manufacturer</label>
+          <div class="col-xs-6">
+            {{ $aircraft->aircraftType->manufacturer }}
+          </div>
+        </div>
+        <div class="row">
           <label class="col-xs-6">Type</label>
           <div class="col-xs-6">
-            {{ $aircraft->aircraftType->type }}
+            <a href="{{ route('aircraftType.show', ['id' => $aircraft->aircraftType->id]) }}">{{ $aircraft->aircraftType->type }}</a>
           </div>
         </div>
         <div class="row">
