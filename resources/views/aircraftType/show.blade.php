@@ -18,6 +18,12 @@
       <!-- form start -->
       <div class="box-body">
         <div class="row">
+          <label class="col-xs-3">Manufacturer</label>
+          <div class="col-xs-9">
+            {{ $aircraftType->manufacturer }}
+          </div>
+        </div>
+        <div class="row">
           <label class="col-xs-3">Type</label>
           <div class="col-xs-9">
             {{ $aircraftType->type }}

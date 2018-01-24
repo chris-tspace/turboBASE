@@ -55,7 +55,7 @@
               style="text-transform:uppercase"
               id="serial_number"
               name="serial_number"
-              value="{{ $engine->serial_number or old('serial_number') }}"
+              value="{{ $engine->serial_number }}"
               required>
               @if ($errors->has('serial_number'))
               <span class="help-block">

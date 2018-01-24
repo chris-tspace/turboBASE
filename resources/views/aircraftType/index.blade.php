@@ -24,6 +24,7 @@
           <table class="table" id="table_aircraftType">
           <thead>
             <tr>
+              <th class="text-left">Manufacturer</th>
               <th class="text-left">Type</th>
               <th class="text-left">Aircrafts</th>
             </tr>
@@ -31,6 +32,7 @@
           <tbody>
             @foreach($aircraftTypes as $item)
             <tr class="item{{$item->id}}">
+              <td>{{ $item->manufacturer }}</td>
               <td><a href="{{ route('aircraftType.show', ['id' => $item->id]) }}">{{$item->type}}</a></td>
               <td>{{ $item->aircrafts->count() }}</td>
             </tr>
@@ -47,13 +49,13 @@
 <script>
   $(document).ready(function() {
     $('#table_aircraftType').DataTable({
-      {{--  "columnDefs": [
-      { "visible": false, "targets": [0, 1] }
+      "columnDefs": [
+      { "visible": false, "targets": [0] }
       ],
       "order": [[ 0, 'asc' ], [ 1, 'asc' ]],
       rowGroup: {
         dataSrc: 0,
-      }  --}}
+      }
     } );
   } );
 </script>

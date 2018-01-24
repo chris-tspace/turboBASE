@@ -31,7 +31,7 @@
               style="text-transform:uppercase"
               id="family"
               name="family"
-              value="{{ $engineType->family or old('family') }}"
+              value="{{ $engineType->family }}"
               autofocus
               required>
               @if ($errors->has('family'))
@@ -51,7 +51,7 @@
               style="text-transform:uppercase"
               id="variant"
               name="variant"
-              value="{{ $engineType->variant or old('family') }}"
+              value="{{ $engineType->variant }}"
               required>
               @if ($errors->has('variant'))
               <span class="help-block">

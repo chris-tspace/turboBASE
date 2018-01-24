@@ -55,7 +55,7 @@
               style="text-transform:uppercase"
               id="serial_number"
               name="serial_number"
-              value="{{ $aircraft->serial_number or old('serial_number') }}"
+              value="{{ $aircraft->serial_number }}"
               required>
               @if ($errors->has('serial_number'))
               <span class="help-block">
@@ -73,7 +73,7 @@
               style="text-transform:uppercase"
               id="manufacturer_code"
               name="manufacturer_code"
-              value="{{ $aircraft->manufacturer_code or old('manufacturer_code') }}"
+              value="{{ $aircraft->manufacturer_code }}"
               required>
               @if ($errors->has('manufacturer_code'))
               <span class="help-block">

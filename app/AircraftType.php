@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AircraftType extends Model
 {
     protected $fillable = [
+        'manufacturer',
         'type',
         'left_engine_type_id',
         'right_engine_type_id',

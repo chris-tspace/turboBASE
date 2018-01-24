@@ -21,27 +21,45 @@
         {{ method_field('PATCH') }}
         <div class="box-body">
           @include('layouts.message')
-          <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-            <label for="type" class="col-sm-3 control-label">Type</label>
+          <div class="form-group{{ $errors->has('manufacturer') ? ' has-error' : '' }}">
+            <label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
 
             <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
-              style="text-transform:uppercase"
-              id="type"
-              name="type"
-              value="{{ $aircraftType->type or old('type') }}"
+              id="manufacturer"
+              name="manufacturer"
+              value="{{ $aircraftType->manufacturer }}"
               autofocus
               required>
-              @if ($errors->has('type'))
+              @if ($errors->has('manufacturer'))
               <span class="help-block">
-                <strong>{{ $errors->first('type') }}</strong>
+                <strong>{{ $errors->first('manufacturer') }}</strong>
               </span>
               @endif
             </div>
           </div>
-          <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
+          <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+              <label for="type" class="col-sm-3 control-label">Type</label>
+  
+              <div class="col-sm-9">
+                <input
+                type="text" 
+                class="form-control"
+                id="type"
+                name="type"
+                value="{{ $aircraftType->type }}"
+                autofocus
+                required>
+                @if ($errors->has('type'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('type') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
             <label for="left_engine_type_id" class="col-sm-3 control-label">Left engine type</label>
             <div class="col-sm-9">
               <select class="selectpicker"
@@ -182,7 +200,6 @@
 @section('js')
 <script>
   function buildinput(form) {
-    form.type.value = form.type.value.toUpperCase();
   }
 </script>
 @endsection
