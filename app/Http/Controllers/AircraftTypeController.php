@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AircraftType;
+use App\EngineType;
 use Illuminate\Http\Request;
 
 class AircraftTypeController extends Controller
@@ -36,7 +37,9 @@ class AircraftTypeController extends Controller
      */
     public function create()
     {
-        return view('aircraftType.create');
+        $engineTypes = EngineType::orderBy('type', 'asc')->get();
+
+        return view('aircraftType.create', compact('engineTypes'));
     }
 
     /**
@@ -82,7 +85,9 @@ class AircraftTypeController extends Controller
      */
     public function edit(AircraftType $aircraftType)
     {
-        return view('aircraftType.edit', compact('aircraftType'));
+        $engineTypes = EngineType::orderBy('type', 'asc')->get();
+
+        return view('aircraftType.edit', compact('aircraftType', 'engineTypes'));
     }
 
     /**

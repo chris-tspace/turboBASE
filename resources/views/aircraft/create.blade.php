@@ -28,8 +28,12 @@
               name="aircraft_type_id"
               value="{{ old('aircraft_type_id') }}"
               required>
+                <option value='' {{ null == old('aircraft_type_id') ? 'selected' : '' }}></option>
                 @foreach($aircraftTypes as $aircraftType)
-                <option value='{{$aircraftType->id }}'>{{ $aircraftType->type }}</option>
+                  <option value='{{ $aircraftType->id }}' 
+                    {{ $aircraftType->id == old('aircraft_type_id') ? 'selected' : '' }}>
+                    {{ $aircraftType->type }}
+                  </option>
                 @endforeach
               </select>
               @if ($errors->has('aircraft_type_id'))

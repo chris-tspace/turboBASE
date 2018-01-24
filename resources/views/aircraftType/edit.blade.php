@@ -9,7 +9,7 @@
 --}}
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-10">
     <div class="box box-info">
       <div class="box-header with-border">
         <h3 class="box-title">Aircraft Type Update</h3>
@@ -22,9 +22,9 @@
         <div class="box-body">
           @include('layouts.message')
           <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-            <label for="type" class="col-sm-2 control-label">type</label>
+            <label for="type" class="col-sm-3 control-label">Type</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -37,6 +37,126 @@
               @if ($errors->has('type'))
               <span class="help-block">
                 <strong>{{ $errors->first('type') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
+            <label for="left_engine_type_id" class="col-sm-3 control-label">Left engine type</label>
+            <div class="col-sm-9">
+              <select class="selectpicker"
+              data-live-search="true"
+              data-width="auto"
+              id="left_engine_type_id"
+              name="left_engine_type_id"
+              value="{{ $aircraftType->left_engine_type_id }}">
+                <option value='' {{ null == $aircraftType->left_engine_type_id ? 'selected' : '' }}></option>
+                @foreach($engineTypes as $engineType)
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == $aircraftType->left_engine_type_id ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('left_engine_type_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('left_engine_type_id') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('right_engine_type_id') ? ' has-error' : '' }}">
+            <label for="right_engine_type_id" class="col-sm-3 control-label">Right engine type</label>
+            <div class="col-sm-9">
+              <select class="selectpicker"
+              data-live-search="true"
+              data-width="auto"
+              id="right_engine_type_id"
+              name="right_engine_type_id"
+              value="{{ $aircraftType->right_engine_type_id }}">
+                <option value='' {{ null == $aircraftType->right_engine_type_id ? 'selected' : '' }}></option>
+                @foreach($engineTypes as $engineType)
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == $aircraftType->right_engine_type_id ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('right_engine_type_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('right_engine_type_id') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('front_engine_type_id') ? ' has-error' : '' }}">
+            <label for="front_engine_type_id" class="col-sm-3 control-label">Front engine type</label>
+            <div class="col-sm-9">
+              <select class="selectpicker"
+              data-live-search="true"
+              data-width="auto"
+              id="front_engine_type_id"
+              name="front_engine_type_id"
+              value="{{ $aircraftType->front_engine_type_id }}">
+                <option value='' {{ null == $aircraftType->front_engine_type_id ? 'selected' : '' }}></option>
+                @foreach($engineTypes as $engineType)
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == $aircraftType->front_engine_type_id ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('front_engine_type_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('front_engine_type_id') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('rear_engine_type_id') ? ' has-error' : '' }}">
+            <label for="rear_engine_type_id" class="col-sm-3 control-label">Rear engine type</label>
+            <div class="col-sm-9">
+              <select class="selectpicker"
+              data-live-search="true"
+              data-width="auto"
+              id="rear_engine_type_id"
+              name="rear_engine_type_id"
+              value="{{ $aircraftType->rear_engine_type_id }}">
+                <option value='' {{ null == $aircraftType->rear_engine_type_id ? 'selected' : '' }}></option>
+                @foreach($engineTypes as $engineType)
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == $aircraftType->rear_engine_type_id ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('rear_engine_type_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('rear_engine_type_id') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('middle_engine_type_id') ? ' has-error' : '' }}">
+            <label for="middle_engine_type_id" class="col-sm-3 control-label">Middle engine type</label>
+            <div class="col-sm-9">
+              <select class="selectpicker"
+              data-live-search="true"
+              data-width="auto"
+              id="middle_engine_type_id"
+              name="middle_engine_type_id"
+              value="{{ $aircraftType->middle_engine_type_id }}">
+                <option value='' {{ null == $aircraftType->middle_engine_type_id ? 'selected' : '' }}></option>
+                @foreach($engineTypes as $engineType)
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == $aircraftType->middle_engine_type_id ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
+                @endforeach
+              </select>
+              @if ($errors->has('middle_engine_type_id'))
+              <span class="help-block">
+                <strong>{{ $errors->first('middle_engine_type_id') }}</strong>
               </span>
               @endif
             </div>

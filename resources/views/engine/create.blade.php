@@ -28,8 +28,12 @@
               name="engine_type_id"
               value="{{ old('engine_type_id') }}"
               required>
+                <option value='' {{ null == old('engine_type_id') ? 'selected' : '' }}></option>
                 @foreach($engineTypes as $engineType)
-                <option value='{{$engineType->id }}'>{{ $engineType->type }}</option>
+                  <option value='{{$engineType->id }}' 
+                    {{ $engineType->id == old('engine_type_id') ? 'selected' : '' }}>
+                    {{ $engineType->type }}
+                  </option>
                 @endforeach
               </select>
               @if ($errors->has('engine_type_id'))
