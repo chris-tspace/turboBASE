@@ -21,8 +21,7 @@
                     name="username"
                     placeholder="Username"
                     value="{{ old('username') }}"
-                    required
-                    autofocus>
+                    required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 
                 @if ($errors->has('username'))

@@ -21,8 +21,7 @@
                     name="username"
                     placeholder="Username"
                     value="{{ old('username') }}"
-                    required
-                    autofocus>
+                    required>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 
                 @if ($errors->has('username'))
@@ -33,7 +32,7 @@
             </div>
 
             <div class="form-group has-feedback{{ $errors->has('name') ? ' has-error' : '' }}">
-                <input id="name" type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}" required autofocus>
+                <input id="name" type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}" required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
                 @if ($errors->has('name'))
