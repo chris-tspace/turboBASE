@@ -53,7 +53,8 @@ class AircraftTypeController extends Controller
     {
         $aircraftType = request()->validate([
             'manufacturer' => 'required',
-            'type' => 'required|unique:aircraft_types',
+            'type' => 'required',
+            'ident' => 'unique:aircraft_types',
             'left_engine_type_id' => 'nullable',
             'right_engine_type_id' => 'nullable',
             'front_engine_type_id' => 'nullable',
@@ -105,7 +106,8 @@ class AircraftTypeController extends Controller
 
         request()->validate([
             'manufacturer' => 'required',
-            'type' => 'required|unique:aircraft_types,type,'.$aircraftType->id,
+            'type' => 'required',
+            'ident' => 'unique:aircraft_types,type,'.$aircraftType->id,
             'left_engine_type_id' => 'nullable',
             'right_engine_type_id' => 'nullable',
             'front_engine_type_id' => 'nullable',
@@ -115,6 +117,7 @@ class AircraftTypeController extends Controller
 
         $aircraftType->manufacturer = $request->manufacturer;
         $aircraftType->type = $request->type;
+        $aircraftType->ident = $request->ident;
         $aircraftType->left_engine_type_id = $request->left_engine_type_id;
         $aircraftType->right_engine_type_id = $request->right_engine_type_id;
         $aircraftType->front_engine_type_id = $request->front_engine_type_id;

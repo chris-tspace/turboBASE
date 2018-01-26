@@ -9,6 +9,7 @@ class AircraftType extends Model
     protected $fillable = [
         'manufacturer',
         'type',
+        'ident',
         'left_engine_type_id',
         'right_engine_type_id',
         'front_engine_type_id',

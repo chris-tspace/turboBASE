@@ -17,6 +17,7 @@ class CreateAircraftTypesTable extends Migration
             $table->increments('id');
             $table->string('manufacturer');
             $table->string('type');
+            $table->string('ident');
             $table->integer('left_engine_type_id')->nullable();
             $table->integer('right_engine_type_id')->nullable();
             $table->integer('front_engine_type_id')->nullable();

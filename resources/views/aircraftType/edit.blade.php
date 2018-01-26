@@ -23,7 +23,6 @@
           @include('layouts.message')
           <div class="form-group{{ $errors->has('manufacturer') ? ' has-error' : '' }}">
             <label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
-
             <div class="col-sm-9">
               <input
               type="text" 
@@ -41,25 +40,38 @@
             </div>
           </div>
           <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-              <label for="type" class="col-sm-3 control-label">Type</label>
-  
-              <div class="col-sm-9">
-                <input
-                type="text" 
-                class="form-control"
-                id="type"
-                name="type"
-                value="{{ $aircraftType->type }}"
-                autofocus
-                required>
-                @if ($errors->has('type'))
-                <span class="help-block">
-                  <strong>{{ $errors->first('type') }}</strong>
-                </span>
-                @endif
-              </div>
+            <label for="type" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
+              <input
+              type="text" 
+              class="form-control"
+              id="type"
+              name="type"
+              value="{{ $aircraftType->type }}"
+              autofocus
+              required>
+              @if ($errors->has('type'))
+              <span class="help-block">
+                <strong>{{ $errors->first('type') }}</strong>
+              </span>
+              @endif
             </div>
-            <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
+          </div>
+          <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
+            <div class="col-sm-9">
+              <input 
+              type="hidden" 
+              id="ident"
+              name="ident"
+              value="">
+              @if ($errors->has('ident'))
+              <span class="help-block">
+                <strong>{{ $errors->first('ident') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
             <label for="left_engine_type_id" class="col-sm-3 control-label">Left engine type</label>
             <div class="col-sm-9">
               <select class="selectpicker"
@@ -200,6 +212,7 @@
 @section('js')
 <script>
   function buildinput(form) {
+    form.ident.value = form.type.value + ' (' + form.manufacturer.value + ')';
   }
 
   $('#manufacturer').autocomplete({
