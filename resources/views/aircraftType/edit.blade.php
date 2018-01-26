@@ -201,5 +201,9 @@
 <script>
   function buildinput(form) {
   }
+
+  $('#manufacturer').autocomplete({
+    source : '{{ route('aircraftType.autocompleteManufacturer') }}',
+  });
 </script>
 @endsection

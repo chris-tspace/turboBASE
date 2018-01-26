@@ -41,11 +41,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
   <!-- jquery ui -->
-  {{--  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  --}}
-
-  <!-- Awesomplete -->
-  <link rel="stylesheet" href="/awesomplete/awesomplete.css" />
-  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
   @yield('css')
 
 
@@ -158,10 +155,7 @@ desired effect
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 <!-- jquery ui -->
-{{--  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  --}}
-
-<!-- Awesomplete -->
-<script src="/awesomplete/awesomplete.js" async></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 @yield('js')
 

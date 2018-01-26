@@ -94,5 +94,9 @@
     form.variant.value = form.variant.value.toUpperCase();
     form.type.value = form.family.value + ' ' + form.variant.value;
   }
+
+  $('#family').autocomplete({
+    source : '{{ route('engineType.autocompleteFamily') }}',
+  });
 </script>
 @endsection

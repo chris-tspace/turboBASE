@@ -140,4 +140,11 @@ class AircraftTypeController extends Controller
 
         return redirect(route('aircraftType.index'))->with('success','Aircraft type deleted successfully');
     }
+
+    public function autocompleteManufacturer(Request $request)
+    {
+        $manufacturers = AircraftType::where('manufacturer', 'like', '%' . $request->term . '%')->pluck('manufacturer')->unique();
+
+        return response()->json($manufacturers);
+    }
 }

@@ -20,6 +20,7 @@ Route::redirect('/home', '/engine')->name('home');
 
 Route::get('/engineType', 'EngineTypeController@index')->name('engineType.index');
 Route::get('/engineType/create', 'EngineTypeController@create')->name('engineType.create');
+Route::get("/engineType/autocompleteFamily", 'engineTypeController@autocompleteFamily')->name('engineType.autocompleteFamily');
 Route::post('/engineType', 'EngineTypeController@store')->name('engineType.store');
 Route::get('/engineType/{engineType}', 'EngineTypeController@show')->name('engineType.show');
 Route::get('/engineType/{engineType}/edit', 'EngineTypeController@edit')->name('engineType.edit');
@@ -36,6 +37,7 @@ Route::delete('/engine/{engine}', 'EngineController@destroy')->name('engine.dest
 
 Route::get('/aircraftType', 'AircraftTypeController@index')->name('aircraftType.index');
 Route::get('/aircraftType/create', 'AircraftTypeController@create')->name('aircraftType.create');
+Route::get("/aircraftType/autocompleteManufacturer", 'AircraftTypeController@autocompleteManufacturer')->name('aircraftType.autocompleteManufacturer');
 Route::post('/aircraftType', 'AircraftTypeController@store')->name('aircraftType.store');
 Route::get('/aircraftType/{aircraftType}', 'AircraftTypeController@show')->name('aircraftType.show');
 Route::get('/aircraftType/{aircraftType}/edit', 'AircraftTypeController@edit')->name('aircraftType.edit');

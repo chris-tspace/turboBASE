@@ -130,4 +130,11 @@ class EngineTypeController extends Controller
 
         return redirect(route('engineType.index'))->with('success','Engine type deleted successfully');
     }
+
+    public function autocompleteFamily(Request $request)
+    {
+        $families = EngineType::where('family', 'like', '%' . $request->term . '%')->pluck('family')->unique();
+
+        return response()->json($families);
+    }
 }

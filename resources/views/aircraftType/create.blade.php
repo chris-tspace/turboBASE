@@ -20,8 +20,9 @@
         <div class="box-body">
           <div class="form-group{{ $errors->has('manufacturer') ? ' has-error' : '' }}">
             <label for="manufacturer" class="col-sm-3 control-label">Manufacturer</label>
-            <div class="col-sm-9 awesomplete">
+            <div class="col-sm-9">
               <input
+              type="text"
               class="form-control"
               list="list_manufacturer"
               id="manufacturer"
@@ -29,13 +30,6 @@
               value="{{ old('manufacturer') }}"
               autofocus
               required>
-              <datalist id="list_manufacturer">
-                @foreach ($manufacturers as $manufacturer)
-                <option>
-                  {{ $manufacturer }}
-                </option>
-                @endforeach
-              </datalist>
               @if ($errors->has('manufacturer'))
               <span class="help-block">
                 <strong>{{ $errors->first('manufacturer') }}</strong>
@@ -204,5 +198,9 @@
   function buildinput(form) {
     form.type.value = form.type.value.toUpperCase();
   }
+
+  $('#manufacturer').autocomplete({
+    source : '{{ route('aircraftType.autocompleteManufacturer') }}',
+  });
 </script>
 @endsection
