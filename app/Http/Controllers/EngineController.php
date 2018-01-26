@@ -38,8 +38,9 @@ class EngineController extends Controller
     public function create()
     {
         $engineTypes = EngineType::orderBy('type', 'asc')->get();
+        $families =  EngineType::orderBy('family', 'asc')->pluck('family')->unique();
 
-        return view('engine.create', compact('engineTypes'));
+        return view('engine.create', compact('engineTypes', 'families'));
     }
 
     /**
@@ -83,8 +84,9 @@ class EngineController extends Controller
     public function edit(Engine $engine)
     {
         $engineTypes = EngineType::orderBy('type', 'asc')->get();
+        $families =  EngineType::orderBy('family', 'asc')->pluck('family')->unique();
 
-        return view('engine.edit', compact('engine', 'engineTypes'));
+        return view('engine.edit', compact('engine', 'engineTypes', 'families'));
     }
 
     /**

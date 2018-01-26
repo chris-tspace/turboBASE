@@ -32,13 +32,17 @@
               value="{{ $engine->engine_type_id }}"
               required>
                 <option value='' {{ null == $engine->engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{ $engineType->id }}' 
-                    {{ $engineType->id == $engine->engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{ $engineType->id }}' 
+                      {{ $engineType->id == $engine->engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
-              </select>
+            </select>
               @if ($errors->has('engine_type_id'))
               <span class="help-block">
                 <strong>{{ $errors->first('engine_type_id') }}</strong>
