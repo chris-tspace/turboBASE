@@ -55,6 +55,20 @@
                 @endif
               </div>
             </div>
+            <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
+              <div class="col-sm-9">
+                <input 
+                type="hidden" 
+                id="ident"
+                name="ident"
+                value="">
+                @if ($errors->has('ident'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('ident') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
             <div class="form-group{{ $errors->has('left_engine_type_id') ? ' has-error' : '' }}">
             <label for="left_engine_type_id" class="col-sm-3 control-label">Left engine type</label>
             <div class="col-sm-9">
@@ -196,7 +210,7 @@
 @section('js')
 <script>
   function buildinput(form) {
-    form.type.value = form.type.value.toUpperCase();
+    form.ident.value = form.type.value + ' (' + form.manufacturer.value + ')';
   }
 
   $('#manufacturer').autocomplete({
