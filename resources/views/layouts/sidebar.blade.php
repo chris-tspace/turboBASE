@@ -28,14 +28,6 @@
           <a href="{{ route('aircraft.index') }}"><i class="fa fa-h-square"></i> <span>Aircrafts</span></a>
         </li>
 
-        <li @if (Route::currentRouteNamed('aircraftType.index') 
-              or Route::currentRouteNamed('aircraftType.create')
-              or Route::currentRouteNamed('aircraftType.show')
-              or Route::currentRouteNamed('aircraftType.edit')
-              ) class="active" @endif >
-          <a href="{{ route('aircraftType.index') }}"><i class="fa fa-h-square"></i> <span>Aircraft Types</span></a>
-        </li>
-
         <li @if (Route::currentRouteNamed('engine.index') 
               or Route::currentRouteNamed('engine.create')
               or Route::currentRouteNamed('engine.show')
@@ -43,19 +35,40 @@
               ) class="active" @endif >
           <a href="{{ route('engine.index') }}"><i class="fa fa-video-camera"></i> <span>Engines</span></a>
         </li>
-        
-        <li @if (Route::currentRouteNamed('engineType.index') 
-              or Route::currentRouteNamed('engineType.create')
-              or Route::currentRouteNamed('engineType.show')
-              or Route::currentRouteNamed('engineType.edit')
-              ) class="active" @endif >
-          <a href="{{ route('engineType.index') }}"><i class="fa fa-file-video-o"></i> <span>Engine Types</span></a>
-        </li>
+        <li @if (Route::currentRouteNamed('aircraftType.index') 
+          or Route::currentRouteNamed('aircraftType.create')
+          or Route::currentRouteNamed('aircraftType.show')
+          or Route::currentRouteNamed('aircraftType.edit')
+          or Route::currentRouteNamed('engineType.index') 
+          or Route::currentRouteNamed('engineType.create')
+          or Route::currentRouteNamed('engineType.show')
+          or Route::currentRouteNamed('engineType.edit')
+        ) class="treeview active menu-open" @else class="treeview" @endif
+        >
+          <a href="#">
+            <i class="fa fa-cog"></i> <span>Configuration</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li @if (Route::currentRouteNamed('aircraftType.index') 
+                  or Route::currentRouteNamed('aircraftType.create')
+                  or Route::currentRouteNamed('aircraftType.show')
+                  or Route::currentRouteNamed('aircraftType.edit')
+                  ) class="active" @endif >
+              <a href="{{ route('aircraftType.index') }}"><i class="fa fa-h-square"></i> <span>Aircraft</span></a>
+            </li>
 
-{{--         <li @if (Route::currentRouteNamed('event.index')) class="active" @endif >
-          <a href="{{ route('event.index') }}"><i class="fa fa-bell"></i> <span>Events</span></a>
+            <li @if (Route::currentRouteNamed('engineType.index') 
+                  or Route::currentRouteNamed('engineType.create')
+                  or Route::currentRouteNamed('engineType.show')
+                  or Route::currentRouteNamed('engineType.edit')
+                  ) class="active" @endif >
+              <a href="{{ route('engineType.index') }}"><i class="fa fa-video-camera"></i> <span>Engine</span></a>
+            </li>
+          </ul>
         </li>
- --}}
       </ul>
       <!-- /.sidebar-menu -->
 
