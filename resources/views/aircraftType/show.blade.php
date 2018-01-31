@@ -1,34 +1,43 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+@section('content-header')
 <h1>
-    Aircraft Types
-    <small>Optional description</small>
+    {{ $aircraftType->type }} - {{ $aircraftType->manufacturer }}
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">Aircraft Type Show</h3>
+        <h3 class="box-title">{{ ($aircraftTypeVersions->count() == 1 ? 'Composition' : 'Compositions') }}</h3>
       </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <div class="box-body">
-        <div class="row">
-          <label class="col-xs-3">Manufacturer</label>
-          <div class="col-xs-9">
-            {{ $aircraftType->manufacturer }}
-          </div>
+        @include('layouts.message')
+        <br>
+        @if ($aircraftTypeVersions->count() > 1)
+        <div class="nav-tabs-custom">	
+          <ul class="nav nav-tabs">
+            @foreach ($aircraftTypeVersions as $aircraftTypeVersion)
+              <li class="{{ $aircraftType->id == $aircraftTypeVersion->id ? 'active' : '' }}">
+                <a 
+                class="nav-link"
+                href="{{ route('aircraftType.show', ['id' => $aircraftTypeVersion->id]) }}"
+                >
+                {{ $aircraftTypeVersion->version }}
+                </a>
+              </li>
+            @endforeach
+          </ul>
         </div>
         <div class="row">
-          <label class="col-xs-3">Type</label>
+          <label class="col-xs-3">Active</label>
           <div class="col-xs-9">
-            {{ $aircraftType->type }}
+              {{ $aircraftType->active ? 'YES' : 'NO' }}
           </div>
         </div>
+        @endif
         @if ($aircraftType->left_engine_type_id)
           <div class="row">
             <label class="col-xs-3">Engine left</label>
@@ -70,34 +79,47 @@
           </div>
         @endif
       </div>
-      <!-- /.box-body -->
       <div class="box-footer">
         <div class="pull-right">
-          <a href="{{ route('aircraftType.edit', ['id' => $aircraftType->id]) }}">
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              {{ $aircraftType->aircrafts->count() != 0 ? 'disabled' : '' }}>
-              Edit
+          <a href="{{ route('aircraftType.createVersion', ['id' => $aircraftType->id]) }}">
+            <button class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Composition
             </button>
           </a>
-        </div>
+          <a href="{{ route('aircraftType.edit', ['id' => $aircraftType->id]) }}">
+              <button class="btn btn-primary" 
+                {{ $aircraftType->aircrafts->count() != 0 ? 'disabled' : '' }}>
+                Edit
+              </button>
+            </a>
+          </div>
         <form  class="form-inline" method="POST" action="{{ route('aircraftType.destroy', ['id' => $aircraftType->id]) }}">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
-          <a href="{{ url()->previous() }}"><button type="button" class="btn btn-default">Back</button></a>
+          <a href="{{ route('aircraftType.index') }}">
+            <button type="button" class="btn btn-default">Cancel</button>
+          </a>
           <button 
             type="submit" 
-            class="btn btn-danger" 
-            {{ $aircraftType->aircrafts->count() != 0 ? 'disabled' : '' }} 
+            class="btn btn-danger"
+            {{ ($aircraftType->aircrafts->count() != 0) ? 'disabled' : '' }} 
             onclick="return confirm('Are you shure ?')">
             Delete
           </button>          
         </form>
-        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">Aircrafts</h3>
+      </div>
+      <div class="box-body">
         @include('aircraft.table')
       </div>
-      <!-- /.box-footer -->
     </div>
   </div>
 </div>

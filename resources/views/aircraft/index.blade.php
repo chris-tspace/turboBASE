@@ -1,26 +1,25 @@
 @extends('layouts.master')
 
 @section('content-header')
+<h1>
+    Aircrafts
+</h1>
 @endsection
 
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <div class="pull-right">
-          <a href="{{ route('aircraft.create') }}">
-            <button class="btn btn-primary btn-sm">
-              <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Create
-            </button>
-          </a>
-        </div>
-        <h3 class="box-title">Aircraft Index</h3>
-      </div>
-      <!-- /.box-header -->
       <div class="box-body">
         @include('layouts.message')
         @include('aircraft.table')
+      </div>
+      <div class="box-footer">
+        <a href="{{ route('aircraft.create') }}">
+          <button class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Create
+          </button>
+        </a>
       </div>
     </div>
   </div>

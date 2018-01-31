@@ -38,7 +38,7 @@ class AircraftController extends Controller
      */
     public function create()
     {
-        $aircraftTypes = AircraftType::orderBy('type', 'asc')->get();
+        $aircraftTypes = AircraftType::orderBy('type', 'asc')->where('active', '1')->get();
         $manufacturers = AircraftType::orderBy('manufacturer', 'asc')->pluck('manufacturer')->unique();
         
         return view('aircraft.create', compact('aircraftTypes', 'manufacturers'));
@@ -99,6 +99,8 @@ class AircraftController extends Controller
      */
     public function update(Request $request, Aircraft $aircraft)
     {
+        if ($aircraft->engines->count() != 0) return redirect(route('aircraft.show', ['id' => $aircraft->id]))->withErrors('Aircraft not updated (has engines)');
+        
         request()->validate([
             'aircraft_type_id' => 'required',
             'serial_number' => 'required',
@@ -111,7 +113,7 @@ class AircraftController extends Controller
         
         $aircraft->save();
 
-        return back()->with('success','Aircraft updated successfully');
+        return redirect(route('aircraft.show', ['id' => $aircraft->id]))->with('success','Aircraft updated successfully');
     }
 
     /**
@@ -122,6 +124,8 @@ class AircraftController extends Controller
      */
     public function destroy(Aircraft $aircraft)
     {
+        if ($aircraft->engines->count() != 0) return redirect(route('aircraft.show', ['id' => $aircraft->id]))->withErrors('Aircraft not deleted (has engines)');
+
         $aircraft->delete();
 
         return redirect(route('aircraft.index'))->with('success','Aircraft deleted successfully');

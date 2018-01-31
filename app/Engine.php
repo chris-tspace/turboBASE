@@ -9,7 +9,7 @@ class Engine extends Model
     protected $fillable = [
         'engine_type_id', 
         'serial_number', 
-        'ident',
+        'identification',
         'aircraf_id',
         'aircraft_position',
     ];

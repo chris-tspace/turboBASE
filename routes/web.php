@@ -38,6 +38,7 @@ Route::delete('/engine/{engine}', 'EngineController@destroy')->name('engine.dest
 Route::get('/aircraftType', 'AircraftTypeController@index')->name('aircraftType.index');
 Route::get('/aircraftType/create', 'AircraftTypeController@create')->name('aircraftType.create');
 Route::get("/aircraftType/autocompleteManufacturer", 'AircraftTypeController@autocompleteManufacturer')->name('aircraftType.autocompleteManufacturer');
+Route::get('/aircraftType/createVersion/{aircraftType}', 'AircraftTypeController@createVersion')->name('aircraftType.createVersion');
 Route::post('/aircraftType', 'AircraftTypeController@store')->name('aircraftType.store');
 Route::get('/aircraftType/{aircraftType}', 'AircraftTypeController@show')->name('aircraftType.show');
 Route::get('/aircraftType/{aircraftType}/edit', 'AircraftTypeController@edit')->name('aircraftType.edit');

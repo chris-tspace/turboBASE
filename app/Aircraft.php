@@ -21,4 +21,9 @@ class Aircraft extends Model
     {
     	return $this->belongsTo(AircraftType::class);
     }
+
+    public function name()
+    {
+        return $this->manufacturer_code . ' (' . $this->serial_number . ')';
+    }
 }

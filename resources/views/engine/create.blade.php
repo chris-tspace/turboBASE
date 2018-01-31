@@ -1,26 +1,20 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+@section('content-header')
 <h1>
-    Engines
-    <small>Optional description</small>
+    Engine Creation
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Engine Creation</h3>
-      </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <form class="form-horizontal" method="POST" action="{{ route('engine.store') }}"> {{ csrf_field() }}
         <div class="box-body">
           <div class="form-group{{ $errors->has('engine_type_id') ? ' has-error' : '' }}">
-            <label for="engine_type_id" class="col-sm-4 control-label">Type</label>
-            <div class="col-sm-8">
+            <label for="engine_type_id" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
               <select class="selectpicker"
               data-live-search="true"
               data-width="auto"
@@ -48,8 +42,8 @@
             </div>
           </div>
           <div class="form-group{{ $errors->has('serial_number') ? ' has-error' : '' }}">
-            <label for="serial_number" class="col-sm-4 control-label">Serial number</label>
-            <div class="col-sm-8">
+            <label for="serial_number" class="col-sm-3 control-label">Serial number</label>
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -65,16 +59,16 @@
               @endif
             </div>
           </div>
-          <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
-            <div class="col-sm-8">
+          <div class="form-group{{ $errors->has('identification') ? ' has-error' : '' }}">
+            <div class="col-sm-9">
               <input
               type="hidden" 
-              id="ident"
-              name="ident"
+              id="identification"
+              name="identification"
               value="">
-              @if ($errors->has('ident'))
+              @if ($errors->has('identification'))
               <span class="help-block">
-                <strong>{{ $errors->first('ident') }}</strong>
+                <strong>{{ $errors->first('identification') }}</strong>
               </span>
               @endif
             </div>
@@ -87,7 +81,9 @@
               Create
             </button>
           </div>
-          <a href="{{ url()->previous() }}"><button type="button" class="btn btn-default">Back</button></a>
+          <a href="{{ route('engine.index') }}">
+            <button type="button" class="btn btn-default">Cancel</button>
+          </a>
         </div>
         <!-- /.box-footer -->
       </form>
@@ -100,7 +96,7 @@
 <script>
   function buildinput(form) {
     form.serial_number.value = form.serial_number.value.toUpperCase();
-    form.ident.value = form.engine_type_id + '_' + form.serial_number.value;
+    form.identification.value = form.engine_type_id + '_' + form.serial_number.value;
   }
 </script>
 @endsection

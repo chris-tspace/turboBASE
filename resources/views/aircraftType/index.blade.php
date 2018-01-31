@@ -1,27 +1,18 @@
 @extends('layouts.master')
 
 @section('content-header')
+<h1>
+    Aircraft Types
+</h1>
 @endsection
 
 @section('content')
-
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <div class="pull-right">
-          <a href="{{ route('aircraftType.create') }}">
-            <button class="btn btn-primary btn-sm">
-              <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Create
-            </button>
-          </a>
-        </div>
-        <h3 class="box-title">Aircraft Type Index</h3>
-      </div>
-      <!-- /.box-header -->
       <div class="box-body">
-          @include('layouts.message')
-          <table class="table" id="table_aircraftType">
+        @include('layouts.message')
+        <table class="table" id="table_aircraftType">
           <thead>
             <tr>
               <th class="text-left">Manufacturer</th>
@@ -39,6 +30,13 @@
             @endforeach
           </tbody>
         </table>
+      </div>
+      <div class="box-footer">
+        <a href="{{ route('aircraftType.create') }}">
+          <button class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Create
+          </button>
+        </a>
       </div>
     </div>
   </div>

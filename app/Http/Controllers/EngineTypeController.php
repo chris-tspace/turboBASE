@@ -99,7 +99,16 @@ class EngineTypeController extends Controller
      */
     public function update(Request $request, EngineType $engineType)
     {
-        if ($engineType->engines->count() != 0) return redirect(route('engineType.index'))->withErrors('Engine type not updated (has engines)');
+        $aircraftTypes = AircraftType::orderBy('type', 'asc')
+            ->where('left_engine_type_id', $engineType->id)
+            ->orWhere('right_engine_type_id', $engineType->id)
+            ->orWhere('front_engine_type_id', $engineType->id)
+            ->orWhere('rear_engine_type_id', $engineType->id)
+            ->orWhere('middle_engine_type_id', $engineType->id)
+            ->get();
+
+        if ($engineType->engines->count() != 0) return redirect(route('engineType.show', ['id' => $engineType->id]))->withErrors('Engine type not updated (has engines)');
+        else if ($aircraftTypes->count() != 0) return redirect(route('engineType.show', ['id' => $engineType->id]))->withErrors('Engine type not updated (has aircrafts)');
 
         request()->validate([
             'family' => 'required',
@@ -113,7 +122,7 @@ class EngineTypeController extends Controller
 
         $engineType->save();
 
-        return back()->with('success','Engine type updated successfully');
+        return redirect(route('engineType.show', ['id' => $engineType->id]))->with('success','Engine type updated successfully');
     }
 
     /**
@@ -124,8 +133,17 @@ class EngineTypeController extends Controller
      */
     public function destroy(EngineType $engineType)
     {
-        if ($engineType->engines->count() != 0) return redirect(route('engineType.index'))->withErrors('Engine type not deleted (has engines)');
+        $aircraftTypes = AircraftType::orderBy('type', 'asc')
+            ->where('left_engine_type_id', $engineType->id)
+            ->orWhere('right_engine_type_id', $engineType->id)
+            ->orWhere('front_engine_type_id', $engineType->id)
+            ->orWhere('rear_engine_type_id', $engineType->id)
+            ->orWhere('middle_engine_type_id', $engineType->id)
+            ->get();
 
+        if ($engineType->engines->count() != 0) return redirect(route('engineType.show', ['id' => $engineType->id]))->withErrors('Engine type not deleted (has engines)');
+        else if ($aircraftTypes->count() != 0) return redirect(route('engineType.show', ['id' => $engineType->id]))->withErrors('Engine type not deleted (has aircrafts)');
+    
         $engineType->delete();
 
         return redirect(route('engineType.index'))->with('success','Engine type deleted successfully');

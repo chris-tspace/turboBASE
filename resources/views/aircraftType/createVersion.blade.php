@@ -2,7 +2,7 @@
 
 @section('content-header')
 <h1>
-    Aircraft Type Creation
+    Aircraft Type Composition Creation
 </h1>
 @endsection
 
@@ -21,9 +21,10 @@
               list="list_manufacturer"
               id="manufacturer"
               name="manufacturer"
-              value="{{ old('manufacturer') }}"
+              value="{{ $aircraftType->manufacturer }}"
               autofocus
-              required>
+              required
+              readonly>
               @if ($errors->has('manufacturer'))
               <span class="help-block">
                 <strong>{{ $errors->first('manufacturer') }}</strong>
@@ -39,9 +40,10 @@
                 class="form-control"
                 id="type"
                 name="type"
-                value="{{ old('type') }}"
+                value="{{ $aircraftType->type }}"
                 autofocus
-                required>
+                required
+                readonly>
                 @if ($errors->has('type'))
                 <span class="help-block">
                   <strong>{{ $errors->first('type') }}</strong>
@@ -64,12 +66,15 @@
               </div>
             </div>
             <div class="form-group{{ $errors->has('version') ? ' has-error' : '' }}">
+              <label for="version" class="col-sm-3 control-label">Version</label>
               <div class="col-sm-9">
                 <input 
-                type="hidden" 
+                type="text" 
+                class="form-control"
                 id="version"
                 name="version"
-                value="">
+                value="{{ $aircraftTypeVersion }}"
+                readonly>
                 @if ($errors->has('version'))
                 <span class="help-block">
                   <strong>{{ $errors->first('version') }}</strong>
@@ -253,8 +258,10 @@
               Create
             </button>
           </div>
-          <a href="{{ route('aircraftType.index') }}">
-            <button type="button" class="btn btn-default">Cancel</button>
+          <a href="{{ route('aircraftType.show', ['id' => $aircraftType->id]) }}">
+            <button type="button" class="btn btn-default">
+              Cancel
+            </button>
           </a>
         </div>
         <!-- /.box-footer -->
@@ -269,13 +276,8 @@
 <script>
   function buildinput(form) {
     form.identification_type.value = form.type.value + ' (' + form.manufacturer.value + ')';
-    form.version.value = 'A';
     form.identification.value = form.identification_type.value + ' - ' + form.version.value;
     form.active.value = 1;
   }
-
-  $('#manufacturer').autocomplete({
-    source : '{{ route('aircraftType.autocompleteManufacturer') }}',
-  });
 </script>
 @endsection
