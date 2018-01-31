@@ -1,26 +1,20 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+ @section('content-header')
 <h1>
-    Aircraft
-    <small>Optional description</small>
+    Aircraft Creation
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Aircraft Creation</h3>
-      </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <form class="form-horizontal" method="POST" action="{{ route('aircraft.store') }}"> {{ csrf_field() }}
         <div class="box-body">
           <div class="form-group{{ $errors->has('aircraft_type_id') ? ' has-error' : '' }}">
-            <label for="aircraft_type_id" class="col-sm-4 control-label">Type</label>
-            <div class="col-sm-8">
+            <label for="aircraft_type_id" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
               <select class="selectpicker"
               data-live-search="true"
               data-width="auto"
@@ -34,7 +28,7 @@
                   @foreach($aircraftTypes->where('manufacturer', $manufacturer) as $aircraftType)
                     <option value='{{ $aircraftType->id }}' 
                       {{ $aircraftType->id == old('aircraft_type_id') ? 'selected' : '' }}>
-                      {{ $aircraftType->type }}
+                      {{ $aircraftType->Name(true) }}
                     </option>
                   @endforeach
                 </optgroup>
@@ -48,8 +42,8 @@
             </div>
           </div>
           <div class="form-group{{ $errors->has('serial_number') ? ' has-error' : '' }}">
-            <label for="serial_number" class="col-sm-4 control-label">Serial number</label>
-            <div class="col-sm-8">
+            <label for="serial_number" class="col-sm-3 control-label">Serial number</label>
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -66,8 +60,8 @@
             </div>
           </div>
           <div class="form-group{{ $errors->has('manufacturer_code') ? ' has-error' : '' }}">
-            <label for="manufacturer_code" class="col-sm-4 control-label">Manufacturer code</label>
-            <div class="col-sm-8">
+            <label for="manufacturer_code" class="col-sm-3 control-label">Manufacturer code</label>
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -75,7 +69,7 @@
               id="manufacturer_code"
               name="manufacturer_code"
               value="{{ old('manufacturer_code') }}"
-              required>
+              >
               @if ($errors->has('manufacturer_code'))
               <span class="help-block">
                 <strong>{{ $errors->first('manufacturer_code') }}</strong>
@@ -83,20 +77,6 @@
               @endif
             </div>
           </div>
-          {{--  <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
-            <div class="col-sm-8">
-              <input
-              type="hidden" 
-              id="ident"
-              name="ident"
-              value="">
-              @if ($errors->has('ident'))
-              <span class="help-block">
-                <strong>{{ $errors->first('ident') }}</strong>
-              </span>
-              @endif
-            </div>
-          </div>  --}}
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
@@ -105,8 +85,10 @@
               Create
             </button>
           </div>
-          <a href="{{ url()->previous() }}"><button type="button" class="btn btn-default">Back</button></a>
-        </div>
+          <a href="{{ route('aircraft.index') }}">
+            <button type="button" class="btn btn-default">Cancel</button>
+          </a>
+          </div>
         <!-- /.box-footer -->
       </form>
     </div>
@@ -119,7 +101,6 @@
   function buildinput(form) {
     form.serial_number.value = form.serial_number.value.toUpperCase();
     form.manufacturer_code.value = form.manufacturer_code.value.toUpperCase();
-    {{--  form.ident.value = form.aircraft_type_id + '_' + form.serial_number.value;  --}}
   }
 </script>
 @endsection

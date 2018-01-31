@@ -54,7 +54,7 @@ class EngineController extends Controller
         $engine = request()->validate([
             'engine_type_id' => 'required',
             'serial_number' => 'required',
-            'ident' => 'unique:engines',
+            'identification' => 'unique:engines',
             'aircraft_id' => 'nullable',
             'aircraft_position' => 'required_with:aircraft_id',
             ]); 
@@ -98,23 +98,25 @@ class EngineController extends Controller
      */
     public function update(Request $request, Engine $engine)
     {
+        if ($engine->aircraft != null) return redirect(route('engine.show', ['id' => $engine->id]))->withErrors('Engine not updated (has aircrafts)');
+
         request()->validate([
             'engine_type_id' => 'required',
             'serial_number' => 'required',
-            'ident' => 'unique:engines,ident,'.$engine->id,
+            'identification' => 'unique:engines,identification,'.$engine->id,
             'aircraft_id' => 'nullable',
             'aircraft_position' => 'required_with:aircraft_id',
         ]);
 
         $engine->engine_type_id = $request->engine_type_id;
         $engine->serial_number = $request->serial_number;
-        $engine->ident = $request->ident;
+        $engine->identification = $request->identification;
         $engine->aircraft_id = $request->aircraft_id;
         $engine->aircraft_position = $request->aircraft_position;
         
         $engine->save();
 
-        return back()->with('success','Engine updated successfully');
+        return redirect(route('engine.show', ['id' => $engine->id]))->with('success','Engine updated successfully');
     }
 
     /**
@@ -125,6 +127,8 @@ class EngineController extends Controller
      */
     public function destroy(Engine $engine)
     {
+        if ($engine->aircraft != null) return redirect(route('engine.show', ['id' => $engine->id]))->withErrors('Engine not deleted (has aircrafts)');
+
         $engine->delete();
 
         return redirect(route('engine.index'))->with('success','Engine deleted successfully');

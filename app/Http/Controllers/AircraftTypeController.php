@@ -25,7 +25,8 @@ class AircraftTypeController extends Controller
      */
     public function index()
     {
-        $aircraftTypes = AircraftType::orderBy('type', 'asc')->get();
+        $aircraftTypes = AircraftType::orderBy('type', 'asc')->where('active', '1')->get();
+        $aircraftTypes = $aircraftTypes->unique('identification_type');
 
         return view('aircraftType.index', compact('aircraftTypes'));
     }
@@ -39,10 +40,23 @@ class AircraftTypeController extends Controller
     {
         $engineTypes = EngineType::orderBy('type', 'asc')->get();
         $manufacturers = AircraftType::orderBy('manufacturer', 'asc')->pluck('manufacturer')->unique();
+        $families =  EngineType::orderBy('family', 'asc')->pluck('family')->unique();
 
-        return view('aircraftType.create', compact('engineTypes', 'manufacturers'));
+        return view('aircraftType.create', compact('engineTypes', 'manufacturers', 'families'));
     }
 
+    public function createVersion(AircraftType $aircraftType)
+    {
+        $engineTypes = EngineType::orderBy('type', 'asc')->get();
+        $aircraftTypeVersion = AircraftType::where('identification_type', $aircraftType->identification_type)
+            ->pluck('version')
+            ->last();
+        $aircraftTypeVersion++;
+        $families =  EngineType::orderBy('family', 'asc')->pluck('family')->unique();
+
+        return view('aircraftType.createVersion', compact('aircraftType', 'engineTypes', 'aircraftTypeVersion', 'families'));
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -54,7 +68,10 @@ class AircraftTypeController extends Controller
         $aircraftType = request()->validate([
             'manufacturer' => 'required',
             'type' => 'required',
-            'ident' => 'unique:aircraft_types',
+            'identification_type' => 'required',
+            'version' => 'required',
+            'identification' => 'unique:aircraft_types',
+            'active' => 'boolean',
             'left_engine_type_id' => 'nullable',
             'right_engine_type_id' => 'nullable',
             'front_engine_type_id' => 'nullable',
@@ -76,8 +93,9 @@ class AircraftTypeController extends Controller
     public function show(AircraftType $aircraftType)
     {
         $aircrafts = $aircraftType->aircrafts;
+        $aircraftTypeVersions = AircraftType::where('identification_type', $aircraftType->identification_type)->get();
 
-        return view('aircraftType.show', compact('aircraftType', 'aircrafts'));
+        return view('aircraftType.show', compact('aircraftType', 'aircrafts', 'aircraftTypeVersions'));
     }
 
     /**
@@ -89,8 +107,9 @@ class AircraftTypeController extends Controller
     public function edit(AircraftType $aircraftType)
     {
         $engineTypes = EngineType::orderBy('type', 'asc')->get();
+        $families =  EngineType::orderBy('family', 'asc')->pluck('family')->unique();
 
-        return view('aircraftType.edit', compact('aircraftType', 'engineTypes'));
+        return view('aircraftType.edit', compact('aircraftType', 'engineTypes', 'families'));
     }
 
     /**
@@ -102,12 +121,15 @@ class AircraftTypeController extends Controller
      */
     public function update(Request $request, AircraftType $aircraftType)
     {
-        if ($aircraftType->aircrafts->count() != 0) return redirect(route('aircraftType.index'))->withErrors('Aircraft type not updated (has aircrafts)');
+        if ($aircraftType->aircrafts->count() != 0) return redirect(route('aircraftType.show', ['id' => $aircraftType->id]))->withErrors('Aircraft type not updated (has aircrafts)');
 
         request()->validate([
             'manufacturer' => 'required',
             'type' => 'required',
-            'ident' => 'unique:aircraft_types,type,'.$aircraftType->id,
+            'identification_type' => 'required',
+            'version' => 'required',
+            'identification' => 'unique:aircraft_types,identification,'.$aircraftType->id,
+            'active' => 'boolean',
             'left_engine_type_id' => 'nullable',
             'right_engine_type_id' => 'nullable',
             'front_engine_type_id' => 'nullable',
@@ -117,7 +139,10 @@ class AircraftTypeController extends Controller
 
         $aircraftType->manufacturer = $request->manufacturer;
         $aircraftType->type = $request->type;
-        $aircraftType->ident = $request->ident;
+        $aircraftType->identification_type = $request->identification_type;
+        $aircraftType->version = $request->version;
+        $aircraftType->identification = $request->identification;
+        $aircraftType->active = $request->active;
         $aircraftType->left_engine_type_id = $request->left_engine_type_id;
         $aircraftType->right_engine_type_id = $request->right_engine_type_id;
         $aircraftType->front_engine_type_id = $request->front_engine_type_id;
@@ -126,7 +151,7 @@ class AircraftTypeController extends Controller
 
         $aircraftType->save();
 
-        return back()->with('success','Aircraft type updated successfully');
+        return redirect(route('aircraftType.show', ['id' => $aircraftType->id]))->with('success','Aircraft type updated successfully');
     }
 
     /**
@@ -137,7 +162,7 @@ class AircraftTypeController extends Controller
      */
     public function destroy(AircraftType $aircraftType)
     {
-        if ($aircraftType->aircrafts->count() != 0) return redirect(route('aircraftType.index'))->withErrors('Aircraft type not deleted (has aircrafts)');
+        if ($aircraftType->aircrafts->count() != 0) return redirect(route('aircraftType.show', ['id' => $aircraftType->id]))->withErrors('Aircraft type not deleted (has aircrafts)');
 
         $aircraftType->delete();
 

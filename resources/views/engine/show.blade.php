@@ -1,45 +1,40 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+@section('content-header')
 <h1>
-    Engines
-    <small>Optional description</small>
+    Engine
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Engine Show</h3>
-      </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <div class="box-body">
+        @include('layouts.message')
         <div class="row">
-          <label class="col-xs-6">Type</label>
-          <div class="col-xs-6">
+          <label class="col-xs-3">Type</label>
+          <div class="col-xs-9">
             {{ $engine->engineType->type }}
           </div>
         </div>
         <div class="row">
-          <label class="col-xs-6">Serial Number</label>
-          <div class="col-xs-6">
+          <label class="col-xs-3">Serial Number</label>
+          <div class="col-xs-9">
             {{ $engine->serial_number }}
           </div>
         </div>
         <div class="row">
-            <label class="col-xs-6">Aircraft</label>
-            <div class="col-xs-6">
+            <label class="col-xs-3">Aircraft</label>
+            <div class="col-xs-9">
                 @if ($engine->aircraft)
-                <a href="{{ route('aircraft.show', ['id' => $engine->aircraft->id]) }}">{{ $engine->aircraft->manufacturer_code }} - {{ $engine->aircraft->aircraftType->type }} ({{ $engine->aircraft->serial_number }})</a>
+                <a href="{{ route('aircraft.show', ['id' => $engine->aircraft->id]) }}">{{ $engine->aircraft->name() }}</a>
                 @endif
             </div>
         </div>
         <div class="row">
-            <label class="col-xs-6">Position</label>
-            <div class="col-xs-6">
+            <label class="col-xs-3">Position</label>
+            <div class="col-xs-9">
                 @if ($engine->aircraft)
                 {{ $engine->aircraft_position }}
                 @endif
@@ -50,9 +45,7 @@
       <div class="box-footer">
         <div class="pull-right">
           <a href="{{ route('engine.edit', ['id' => $engine->id]) }}">
-            <button
-              type="button"
-              class="btn btn-primary"
+            <button class="btn btn-primary"
               {{ $engine->aircraft != null ? 'disabled' : '' }}>
               Edit
             </button>
@@ -61,7 +54,9 @@
         <form  class="form-inline" method="POST" action="{{ route('engine.destroy', ['id' => $engine->id]) }}">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
-          <a href="{{ url()->previous() }}"><button type="button" class="btn btn-default">Back</button></a>
+          <a href="{{ route('engine.index') }}">
+            <button type="button" class="btn btn-default">Back</button>
+          </a>
           <button
             type="submit"
             class="btn btn-danger"

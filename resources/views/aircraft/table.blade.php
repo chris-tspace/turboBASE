@@ -9,7 +9,7 @@
       <tbody>
         @foreach($aircrafts as $item)
         <tr class="item{{$item->id}}">
-          <td>{{ $item->aircraftType->type }} - {{ $item->aircraftType->manufacturer }}</td>
+          <td>{{ $item->aircraftType->name() }}</td>
           <td><a href="{{ route('aircraft.show', ['id' => $item->id]) }}">{{ $item->serial_number }}</a></td>
           <td>{{ $item->manufacturer_code }}</td>
         </tr>

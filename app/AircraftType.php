@@ -9,7 +9,10 @@ class AircraftType extends Model
     protected $fillable = [
         'manufacturer',
         'type',
-        'ident',
+        'identification_type',
+        'version',
+        'identification',
+        'active',
         'left_engine_type_id',
         'right_engine_type_id',
         'front_engine_type_id',
@@ -45,5 +48,18 @@ class AircraftType extends Model
     public function middleEngineType()
     {
         return $this->belongsTo(EngineType::class);
+    }
+
+    public function name($active = false)
+    {
+        $name = $this->type;
+
+        $type = $this->where('identification_type', $this->identification_type);
+
+        if ($active) $type = $type->where('active', '1');
+
+        if ($type->count() > 1) $name = $name . '-' . $this->version;
+
+        return $name;
     }
 }

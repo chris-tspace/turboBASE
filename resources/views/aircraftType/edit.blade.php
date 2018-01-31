@@ -1,21 +1,15 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+@section('content-header')
 <h1>
-    Aircraft Types
-    <small>Optional description</small>
+    {{ $aircraftType->type }} - {{ $aircraftType->manufacturer }}
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Aircraft Type Update</h3>
-      </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <form class="form-horizontal" method="POST" action="{{ route('aircraftType.update', ['id' => $aircraftType->id]) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
@@ -57,16 +51,65 @@
               @endif
             </div>
           </div>
-          <div class="form-group{{ $errors->has('ident') ? ' has-error' : '' }}">
+          <div class="form-group{{ $errors->has('version') ? ' has-error' : '' }}">
+            <label for="version" class="col-sm-3 control-label">Version</label>
+            <div class="col-sm-9">
+              <input 
+              type="text" 
+              class="form-control"
+              id="version"
+              name="version"
+              value="{{ $aircraftType->version }}"
+              readonly>
+              @if ($errors->has('version'))
+              <span class="help-block">
+                <strong>{{ $errors->first('version') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
+            <label for="active" class="col-sm-3 control-label">Active</label>
+            <div class="col-sm-9">
+              <input 
+              class="checkbox"
+              type="checkbox" 
+              id="active"
+              name="active"
+              value="{{ $aircraftType->active }}"
+              {{ $aircraftType->active ? 'checked' : '' }}
+              >
+              @if ($errors->has('active'))
+              <span class="help-block">
+                <strong>{{ $errors->first('active') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('identification_type') ? ' has-error' : '' }}">
             <div class="col-sm-9">
               <input 
               type="hidden" 
-              id="ident"
-              name="ident"
+              id="identification_type"
+              name="identification_type"
               value="">
-              @if ($errors->has('ident'))
+              @if ($errors->has('identification_type'))
               <span class="help-block">
-                <strong>{{ $errors->first('ident') }}</strong>
+                <strong>{{ $errors->first('identification_type') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group{{ $errors->has('identification') ? ' has-error' : '' }}">
+            <div class="col-sm-9">
+              <input 
+              type="hidden" 
+              id="identification"
+              name="identification"
+              value="">
+              @if ($errors->has('identification'))
+              <span class="help-block">
+                <strong>{{ $errors->first('identification') }}</strong>
               </span>
               @endif
             </div>
@@ -81,11 +124,15 @@
               name="left_engine_type_id"
               value="{{ $aircraftType->left_engine_type_id }}">
                 <option value='' {{ null == $aircraftType->left_engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{$engineType->id }}' 
-                    {{ $engineType->id == $aircraftType->left_engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{$engineType->id }}' 
+                      {{ $engineType->id == $aircraftType->left_engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
               </select>
               @if ($errors->has('left_engine_type_id'))
@@ -105,11 +152,15 @@
               name="right_engine_type_id"
               value="{{ $aircraftType->right_engine_type_id }}">
                 <option value='' {{ null == $aircraftType->right_engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{$engineType->id }}' 
-                    {{ $engineType->id == $aircraftType->right_engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{$engineType->id }}' 
+                      {{ $engineType->id == $aircraftType->right_engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
               </select>
               @if ($errors->has('right_engine_type_id'))
@@ -129,11 +180,15 @@
               name="front_engine_type_id"
               value="{{ $aircraftType->front_engine_type_id }}">
                 <option value='' {{ null == $aircraftType->front_engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{$engineType->id }}' 
-                    {{ $engineType->id == $aircraftType->front_engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{$engineType->id }}' 
+                      {{ $engineType->id == $aircraftType->front_engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
               </select>
               @if ($errors->has('front_engine_type_id'))
@@ -153,11 +208,15 @@
               name="rear_engine_type_id"
               value="{{ $aircraftType->rear_engine_type_id }}">
                 <option value='' {{ null == $aircraftType->rear_engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{$engineType->id }}' 
-                    {{ $engineType->id == $aircraftType->rear_engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{$engineType->id }}' 
+                      {{ $engineType->id == $aircraftType->rear_engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
               </select>
               @if ($errors->has('rear_engine_type_id'))
@@ -177,11 +236,15 @@
               name="middle_engine_type_id"
               value="{{ $aircraftType->middle_engine_type_id }}">
                 <option value='' {{ null == $aircraftType->middle_engine_type_id ? 'selected' : '' }}></option>
-                @foreach($engineTypes as $engineType)
-                  <option value='{{$engineType->id }}' 
-                    {{ $engineType->id == $aircraftType->middle_engine_type_id ? 'selected' : '' }}>
-                    {{ $engineType->type }}
-                  </option>
+                @foreach($families as $family)
+                <optgroup label="{{ $family }}">
+                  @foreach($engineTypes->where('family', $family) as $engineType)
+                    <option value='{{$engineType->id }}' 
+                      {{ $engineType->id == $aircraftType->middle_engine_type_id ? 'selected' : '' }}>
+                      {{ $engineType->type }}
+                    </option>
+                  @endforeach
+                </optgroup>
                 @endforeach
               </select>
               @if ($errors->has('middle_engine_type_id'))
@@ -199,11 +262,14 @@
               Update
             </button>
           </div>
-          <a href="{{ route('aircraftType.show', ['id' => $aircraftType->id]) }}"><button type="button" class="btn btn-default">Back</button></a>
+          <a href="{{ route('aircraftType.show', ['id' => $aircraftType->id]) }}">
+            <button type="button" class="btn btn-default">
+              Cancel
+            </button>
+          </a>
         </div>
         <!-- /.box-footer -->
       </form>
-
     </div>
   </div>
 </div>
@@ -212,7 +278,10 @@
 @section('js')
 <script>
   function buildinput(form) {
-    form.ident.value = form.type.value + ' (' + form.manufacturer.value + ')';
+    form.identification_type.value = form.type.value + ' (' + form.manufacturer.value + ')';
+    form.identification.value = form.identification_type.value + ' - ' + form.version.value;
+    if (form.active.value != null) form.active.value = "1";
+    else form.active.value = "0";
   }
 
   $('#manufacturer').autocomplete({

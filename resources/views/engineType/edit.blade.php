@@ -1,30 +1,24 @@
 @extends('layouts.master')
 
-{{-- @section('content-header')
+@section('content-header')
 <h1>
-    Engine Types
-    <small>Optional description</small>
+    {{ $engineType->type }}
 </h1>
 @endsection
---}}
+
 @section('content')
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-12">
     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Engine Type Update</h3>
-      </div>
-      <!-- /.box-header -->
-      <!-- form start -->
       <form class="form-horizontal" method="POST" action="{{ route('engineType.update', ['id' => $engineType->id]) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
         <div class="box-body">
           @include('layouts.message')
           <div class="form-group{{ $errors->has('family') ? ' has-error' : '' }}">
-            <label for="family" class="col-sm-2 control-label">Family</label>
+            <label for="family" class="col-sm-3 control-label">Family</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -42,9 +36,9 @@
             </div>
           </div>
           <div class="form-group{{ $errors->has('variant') ? ' has-error' : '' }}">
-            <label for="variant" class="col-sm-2 control-label">Variant</label>
+            <label for="variant" class="col-sm-3 control-label">Variant</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <input
               type="text" 
               class="form-control"
@@ -82,7 +76,11 @@
               Update
             </button>
           </div>
-          <a href="{{ route('engineType.show', ['id' => $engineType->id]) }}"><button type="button" class="btn btn-default">Back</button></a>
+          <a href="{{ route('engineType.show', ['id' => $engineType->id]) }}">
+            <button type="button" class="btn btn-default">
+              Cancel
+            </button>
+          </a>
         </div>
         <!-- /.box-footer -->
       </form>
