@@ -30,9 +30,11 @@ Route::delete('/engineType/{engineType}', 'EngineTypeController@destroy')->name(
 Route::get('/engine', 'EngineController@index')->name('engine.index');
 Route::get('/engine/create', 'EngineController@create')->name('engine.create');
 Route::post('/engine', 'EngineController@store')->name('engine.store');
+Route::post('/engine/installAircraft', 'EngineController@installAircraft')->name('engine.installAircraft');
 Route::get('/engine/{engine}', 'EngineController@show')->name('engine.show');
 Route::get('/engine/{engine}/edit', 'EngineController@edit')->name('engine.edit');
 Route::patch('/engine/{engine}', 'EngineController@update')->name('engine.update');
+Route::patch('/engine/{engine}/removeAircraft', 'EngineController@removeAircraft')->name('engine.removeAircraft');
 Route::delete('/engine/{engine}', 'EngineController@destroy')->name('engine.destroy');
 
 Route::get('/aircraftType', 'AircraftTypeController@index')->name('aircraftType.index');

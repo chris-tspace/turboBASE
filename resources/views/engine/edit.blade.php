@@ -36,7 +36,7 @@
                   @endforeach
                 </optgroup>
                 @endforeach
-            </select>
+              </select>
               @if ($errors->has('engine_type_id'))
               <span class="help-block">
                 <strong>{{ $errors->first('engine_type_id') }}</strong>
@@ -101,7 +101,7 @@
 <script>
   function buildinput(form) {
     form.serial_number.value = form.serial_number.value.toUpperCase();
-    form.identification.value = form.engine_type_id + '_' + form.serial_number.value;
+    form.identification.value = form.engine_type_id.value + '_' + form.serial_number.value;
   }
 </script>
 @endsection

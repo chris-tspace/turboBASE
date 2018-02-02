@@ -86,12 +86,16 @@
               <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Composition
             </button>
           </a>
+          @if ( $aircraftType->aircrafts->count() == 0 )
           <a href="{{ route('aircraftType.edit', ['id' => $aircraftType->id]) }}">
-              <button class="btn btn-primary" 
-                {{ $aircraftType->aircrafts->count() != 0 ? 'disabled' : '' }}>
-                Edit
-              </button>
-            </a>
+          @endif
+            <button class="btn btn-primary" 
+              {{ $aircraftType->aircrafts->count() != 0 ? 'disabled' : '' }}>
+              Edit
+            </button>
+          @if ( $aircraftType->aircrafts->count() == 0 )
+          </a>
+          @endif
           </div>
         <form  class="form-inline" method="POST" action="{{ route('aircraftType.destroy', ['id' => $aircraftType->id]) }}">
           {{ csrf_field() }}

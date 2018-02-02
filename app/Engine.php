@@ -23,4 +23,26 @@ class Engine extends Model
     {
         return $this->belongsTo(Aircraft::class);
     }
+
+    public function positionName()
+    {
+        switch ($this->aircraft_position) {
+            case 1:
+            return 'left';
+
+            case 2:
+            return 'right';
+
+            case 3:
+            return 'front';
+
+            case 4:
+            return 'rear';
+
+            case 5:
+            return 'middle';
+        }
+
+        return '';
+    }
 }
