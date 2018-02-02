@@ -72,8 +72,13 @@ class AircraftController extends Controller
     public function show(Aircraft $aircraft)
     {
         $engines = $aircraft->engines;
+        $leftEngine = $engines->where('aircraft_position', '1')->first();
+        $rightEngine = $engines->where('aircraft_position', '2')->first();
+        $frontEngine = $engines->where('aircraft_position', '3')->first();
+        $rearEngine = $engines->where('aircraft_position', '4')->first();
+        $middleEngine = $engines->where('aircraft_position', '5')->first();
 
-        return view('aircraft.show', compact('aircraft', 'engines'));
+        return view('aircraft.show', compact('aircraft', 'engines', 'leftEngine', 'rightEngine', 'frontEngine', 'rearEngine', 'middleEngine'));
     }
 
     /**

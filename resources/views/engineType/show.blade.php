@@ -36,12 +36,16 @@
       <!-- /.box-body -->
       <div class="box-footer">
         <div class="pull-right">
+          @if (($engineType->engines->count() == 0) && ($aircraftTypes->count() == 0))
           <a href="{{ route('engineType.edit', ['id' => $engineType->id]) }}">
+          @endif
             <button class="btn btn-primary" 
               {{ (($engineType->engines->count() != 0) || ($aircraftTypes->count() != 0)) ? 'disabled' : '' }}>
               Edit
             </button>
+          @if (($engineType->engines->count() == 0) && ($aircraftTypes->count() == 0))
           </a>
+          @endif
         </div>
         <form  class="form-inline" method="POST" action="{{ route('engineType.destroy', ['id' => $engineType->id]) }}">
           {{ csrf_field() }}

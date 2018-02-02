@@ -36,7 +36,7 @@
             <label class="col-xs-3">Position</label>
             <div class="col-xs-9">
                 @if ($engine->aircraft)
-                {{ $engine->aircraft_position }}
+                {{ $engine->positionName() }}
                 @endif
             </div>
         </div>
@@ -44,12 +44,16 @@
       <!-- /.box-body -->
       <div class="box-footer">
         <div class="pull-right">
+          @if ( $engine->aircraft == null )
           <a href="{{ route('engine.edit', ['id' => $engine->id]) }}">
+          @endif
             <button class="btn btn-primary"
               {{ $engine->aircraft != null ? 'disabled' : '' }}>
               Edit
             </button>
+          @if ( $engine->aircraft == null )
           </a>
+          @endif
         </div>
         <form  class="form-inline" method="POST" action="{{ route('engine.destroy', ['id' => $engine->id]) }}">
           {{ csrf_field() }}

@@ -72,7 +72,7 @@
               id="manufacturer_code"
               name="manufacturer_code"
               value="{{ $aircraft->manufacturer_code }}"
-              required>
+              >
               @if ($errors->has('manufacturer_code'))
               <span class="help-block">
                 <strong>{{ $errors->first('manufacturer_code') }}</strong>

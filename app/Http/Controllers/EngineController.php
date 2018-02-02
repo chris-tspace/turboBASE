@@ -119,6 +119,62 @@ class EngineController extends Controller
         return redirect(route('engine.show', ['id' => $engine->id]))->with('success','Engine updated successfully');
     }
 
+    public function removeAircraft(Request $request, Engine $engine)
+    {
+        $engine->aircraft_id = null;
+        $engine->aircraft_position = null;
+        
+        $engine->save();
+
+        return back()->with('success','Engine updated successfully');
+    }
+
+    public function installAircraft(Request $request)
+    {
+        $engine = Engine::where('engine_type_id', $request->engine_type_id)
+         ->where('serial_number', $request->serial_number)
+         ->first();
+
+        if ($engine && $engine->aircraft_id) return back()->withErrors('Engine ' . $engine->engineType->type . ' - ' . $engine->serial_number . ' already installed');
+        switch ($request->action) {
+            case 'install':
+            if (!$engine) return back()->withErrors('Engine ' . $request->engine_type_name . ' - ' . $request->serial_number . ' doesn\'t exist');
+            break;
+
+            case 'create':
+            if (!$engine) {
+                $engine = request()->validate([
+                    'engine_type_id' => 'required',
+                    'serial_number' => 'required',
+                    'identification' => 'unique:engines',
+                    'aircraft_id' => 'required',
+                    'aircraft_position' => 'required',
+                    ]); 
+
+                    $engine = Engine::Create($engine);
+
+                    $engine->aircraft_id = $request->aircraft_id;
+                    $engine->aircraft_position = $request->aircraft_position;
+            
+                    $engine->save();                    
+
+                return back()->with('success','Engine created & installed successfully');
+            }
+        }
+      
+        request()->validate([
+            'aircraft_id' => 'required',
+            'aircraft_position' => 'required',
+        ]);
+
+        $engine->aircraft_id = $request->aircraft_id;
+        $engine->aircraft_position = $request->aircraft_position;
+
+        $engine->save();
+
+        return back()->with('success','Engine updated successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

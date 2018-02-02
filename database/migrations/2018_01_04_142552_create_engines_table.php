@@ -22,8 +22,7 @@ class CreateEnginesTable extends Migration
             $table->string('serial_number');
             $table->string('identification');
             $table->integer('aircraft_id')->nullable();
-            $table->enum('aircraft_position', ['left', 'right', 'front', 'rear', 'middle'])->nullable();
-            // $table->enum('status', ['installed', 'stock', 'returned', ]);
+            $table->integer('aircraft_position')->nullable();
             $table->timestamps();
         });
     }
