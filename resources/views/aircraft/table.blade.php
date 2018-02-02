@@ -1,4 +1,4 @@
-    <table class="table" id="table_aircraft">
+    <table class="table" cellspacing="0" width="100%" id="table_aircraft">
       <thead>
         <tr>
           <th class="text-left">Type</th>

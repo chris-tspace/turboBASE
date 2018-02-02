@@ -13,7 +13,7 @@
     <div class="box box-info">
       <div class="box-body">
           @include('layouts.message')
-          <table class="table" id="table_engineType">
+          <table class="table" cellspacing="0" width="100%" id="table_engineType">
           <thead>
             <tr>
               <th class="text-center">Family</th>

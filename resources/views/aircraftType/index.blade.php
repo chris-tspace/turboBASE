@@ -12,7 +12,7 @@
     <div class="box box-info">
       <div class="box-body">
         @include('layouts.message')
-        <table class="table" id="table_aircraftType">
+        <table class="table" cellspacing="0" width="100%" id="table_aircraftType">
           <thead>
             <tr>
               <th class="text-left">Manufacturer</th>

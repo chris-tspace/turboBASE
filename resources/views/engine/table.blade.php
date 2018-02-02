@@ -1,4 +1,4 @@
-<table class="table" id="table_engine">
+<table class="table" cellspacing="0" width="100%" id="table_engine">
   <thead>
     <tr>
       <th class="text-left">Type</th>
