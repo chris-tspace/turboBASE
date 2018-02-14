@@ -26,4 +26,9 @@ class Aircraft extends Model
     {
         return $this->manufacturer_code . ' (' . $this->serial_number . ')';
     }
+
+    public function posts()
+    {
+    	return $this->hasMany(Post::class);
+    }
 }

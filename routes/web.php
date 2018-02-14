@@ -54,3 +54,19 @@ Route::get('/aircraft/{aircraft}', 'AircraftController@show')->name('aircraft.sh
 Route::get('/aircraft/{aircraft}/edit', 'AircraftController@edit')->name('aircraft.edit');
 Route::patch('/aircraft/{aircraft}', 'AircraftController@update')->name('aircraft.update');
 Route::delete('/aircraft/{aircraft}', 'AircraftController@destroy')->name('aircraft.destroy');
+
+Route::get('/post', 'PostController@index')->name('post.index');
+Route::get('/post/create', 'PostController@create')->name('post.create');
+Route::post('/post', 'PostController@store')->name('post.store');
+Route::get('/post/{post}', 'PostController@show')->name('post.show');
+Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+Route::patch('/post/{post}', 'PostController@update')->name('post.update');
+Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
+
+Route::get('/comment', 'CommentController@index')->name('comment.index');
+Route::get('/comment/create', 'CommentController@create')->name('comment.create');
+Route::post('/comment', 'CommentController@store')->name('comment.store');
+Route::get('/comment/{comment}', 'CommentController@show')->name('comment.show');
+Route::get('/comment/{comment}/edit', 'CommentController@edit')->name('comment.edit');
+Route::patch('/comment/{comment}', 'CommentController@update')->name('comment.update');
+Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
