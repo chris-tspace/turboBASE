@@ -4,29 +4,34 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Engine extends Model
+class Post extends Model
 {
     protected $fillable = [
-        'engine_type_id', 
-        'serial_number', 
-        'identification',
-        'aircraf_id',
+        'user_id',
+        'aircraft_id',
+        'engine_id',
         'aircraft_position',
+        'type',
+        'body',
         'date',
-        'action_post_id',
     ];
 
-    public function engineType()
+    public function user()
     {
-    	return $this->belongsTo(EngineType::class);
+    	return $this->belongsTo(User::class);
     }
 
     public function aircraft()
     {
-        return $this->belongsTo(Aircraft::class);
+    	return $this->belongsTo(Aircraft::class);
     }
 
-    public function positionName()
+    public function engine()
+    {
+    	return $this->belongsTo(Engine::class);
+    }
+
+    public function enginePositionName()
     {
         switch ($this->aircraft_position) {
             case 1:
@@ -48,8 +53,9 @@ class Engine extends Model
         return '';
     }
 
-    public function posts()
+    public function comments()
     {
-    	return $this->hasMany(Post::class);
+        return $this->hasMany(Comment::class);
     }
+
 }

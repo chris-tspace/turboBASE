@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Engine;
 use App\EngineType;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EngineController extends Controller
 {
@@ -57,6 +59,7 @@ class EngineController extends Controller
             'identification' => 'unique:engines',
             'aircraft_id' => 'nullable',
             'aircraft_position' => 'required_with:aircraft_id',
+            'date' => 'nullable|date',
             ]); 
             
         Engine::Create($engine);
@@ -72,7 +75,9 @@ class EngineController extends Controller
      */
     public function show(Engine $engine)
     {
-        return view('engine.show', compact('engine'));
+        $posts = $engine->posts->sortBy('date')->reverse();
+
+        return view('engine.show', compact('engine', 'posts'));
     }
 
     /**
@@ -106,6 +111,7 @@ class EngineController extends Controller
             'identification' => 'unique:engines,identification,'.$engine->id,
             'aircraft_id' => 'nullable',
             'aircraft_position' => 'required_with:aircraft_id',
+            'date' => 'nullable|date',
         ]);
 
         $engine->engine_type_id = $request->engine_type_id;
@@ -121,8 +127,24 @@ class EngineController extends Controller
 
     public function removeAircraft(Request $request, Engine $engine)
     {
+        request()->validate([
+            'date' => 'required|date',
+        ]);
+
+        $post = Post::Create([
+            'user_id' => Auth::id(),
+            'aircraft_id' => $engine->aircraft_id,
+            'engine_id' => $engine->id,
+            'aircraft_position' => $engine->aircraft_position,
+            'type' => 3,
+            'body' => null,
+            'date' => $request->date,
+        ]);
+        
         $engine->aircraft_id = null;
         $engine->aircraft_position = null;
+        $engine->date = $request->date;
+        $engine->action_post_id = $post->id;
         
         $engine->save();
 
@@ -149,14 +171,28 @@ class EngineController extends Controller
                     'identification' => 'unique:engines',
                     'aircraft_id' => 'required',
                     'aircraft_position' => 'required',
+                    'date' => 'required|date',
                     ]); 
 
-                    $engine = Engine::Create($engine);
+                $engine = Engine::Create($engine);
 
-                    $engine->aircraft_id = $request->aircraft_id;
-                    $engine->aircraft_position = $request->aircraft_position;
-            
-                    $engine->save();                    
+                $engine->aircraft_id = $request->aircraft_id;
+                $engine->aircraft_position = $request->aircraft_position;
+                $engine->date = $request->date;
+
+                $post = Post::Create([
+                    'user_id' => Auth::id(),
+                    'aircraft_id' => $engine->aircraft_id,
+                    'engine_id' => $engine->id,
+                    'aircraft_position' => $engine->aircraft_position,
+                    'type' => 2,
+                    'body' => null,
+                    'date' => $request->date,
+                ]);
+
+                $engine->action_post_id = $post->id;
+        
+                $engine->save();
 
                 return back()->with('success','Engine created & installed successfully');
             }
@@ -165,10 +201,24 @@ class EngineController extends Controller
         request()->validate([
             'aircraft_id' => 'required',
             'aircraft_position' => 'required',
+            'date' => 'required|date',
         ]);
 
         $engine->aircraft_id = $request->aircraft_id;
         $engine->aircraft_position = $request->aircraft_position;
+        $engine->date = $request->date;
+
+        $post = Post::Create([
+            'user_id' => Auth::id(),
+            'aircraft_id' => $engine->aircraft_id,
+            'engine_id' => $engine->id,
+            'aircraft_position' => $engine->aircraft_position,
+            'type' => 2,
+            'body' => null,
+            'date' => $request->date,
+        ]);
+
+        $engine->action_post_id = $post->id;
 
         $engine->save();
 

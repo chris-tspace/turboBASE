@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Aircraft;
 use App\AircraftType;
 use App\Engine;
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AircraftController extends Controller
 {
@@ -71,14 +73,24 @@ class AircraftController extends Controller
      */
     public function show(Aircraft $aircraft)
     {
+        $posts = $aircraft->posts->sortBy('date')->reverse();
+
         $engines = $aircraft->engines;
         $leftEngine = $engines->where('aircraft_position', '1')->first();
+        if ($leftEngine == null) $leftEngineRemovalPost = $posts->where('type', '3')->where('aircraft_position', '1')->first();
         $rightEngine = $engines->where('aircraft_position', '2')->first();
+        if ($rightEngine == null) $rightEngineRemovalPost = $posts->where('type', '3')->where('aircraft_position', '2')->first();
         $frontEngine = $engines->where('aircraft_position', '3')->first();
+        if ($frontEngine == null) $frontEngineRemovalPost = $posts->where('type', '3')->where('aircraft_position', '3')->first();
         $rearEngine = $engines->where('aircraft_position', '4')->first();
+        if ($rearEngine == null) $rearEngineRemovalPost = $posts->where('type', '3')->where('aircraft_position', '4')->first();
         $middleEngine = $engines->where('aircraft_position', '5')->first();
+        if ($middleEngine == null) $middleEngineRemovalPost = $posts->where('type', '3')->where('aircraft_position', '5')->first();
 
-        return view('aircraft.show', compact('aircraft', 'engines', 'leftEngine', 'rightEngine', 'frontEngine', 'rearEngine', 'middleEngine'));
+        return view('aircraft.show', compact('aircraft', 'engines', 'posts', 
+            'leftEngine', 'rightEngine', 'frontEngine', 'rearEngine', 'middleEngine',
+            'leftEngineRemovalPost', 'rightEngineRemovalPost', 'frontEngineRemovalPost', 'rearEngineRemovalPost', 'middleEngineRemovalPost'
+        ));
     }
 
     /**
