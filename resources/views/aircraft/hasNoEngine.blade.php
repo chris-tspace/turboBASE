@@ -1,8 +1,10 @@
 <td><span style="vertical-align: middle;">{{ $name }}</span></td>
 <td>NONE</td>
 <td>
+  @if ($actualEngineRemovalPost != null)
   @if ($actualEngineRemovalPost->date != null)
-  removed {{ \Carbon\Carbon::parse($actualEngineRemovalPost->date)->format('d-M-Y') }}
+    removed {{ \Carbon\Carbon::parse($actualEngineRemovalPost->date)->format('d-M-Y') }}
+  @endif
   @endif
 </td>
 <td>
