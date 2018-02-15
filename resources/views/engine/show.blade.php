@@ -133,7 +133,7 @@
     </div>
   </div>
 </div>
-@include('layouts.post')
+@include('global.post')
 @endsection
             
 @section('js')
